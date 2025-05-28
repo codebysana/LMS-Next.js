@@ -1,0 +1,34 @@
+import { Poppins} from "next/font/google";
+import { Hind } from "next/font/google";
+import { ThemeProvider } from "./utils/theme-provider";
+import "./globals.css";
+
+const poppins = Poppins({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-Poppins",
+});
+
+const hind = Hind({
+  subsets: ["latin"],
+   weight: ["400", "500", "600", "700"],
+  variable: "--font-Hind",
+});
+
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
+  return (
+    <html lang="en">
+      <body
+        className={`${poppins.variable} ${hind.variable} !bg-white dark:bg-gradient-to-b dark:from-gray-900 dark:to-black duration-300`}
+      >
+       <ThemeProvider attribute="class" drfaultTheme="system" enableSystem>
+        {children}
+       </ThemeProvider>
+      </body>
+    </html>
+  );
+}
