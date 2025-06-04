@@ -1,8 +1,11 @@
+// New Client Folder
+
 /* eslint-disable @typescript-eslint/no-unused-vars */
 "use client"
 import React, {FC, useState} from "react";
 import Heading from "./utils/Heading";
 import Header from "./components/Header";
+// import "../globals.css"
 
 interface Props{
 
