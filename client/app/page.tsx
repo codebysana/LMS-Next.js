@@ -13,6 +13,7 @@ interface Props {}
 const Page: FC<Props> = (props) => {
   const [open, setOpen] = useState(false);
   const [activeItem, setActiveItem] = useState(0);
+  const [route, setRoute] = useState("Login");
   return (
     <div>
       <Heading
@@ -20,7 +21,13 @@ const Page: FC<Props> = (props) => {
         description="LMS is a platform where students can enroll and learn courses from international teachers."
         keywords="Programming, MERN, Redux Toolkit, Machine Lerning"
       />
-      <Header open={open} setOpen={setOpen} activeItem={activeItem} />
+      <Header
+        open={open}
+        setOpen={setOpen}
+        activeItem={activeItem}
+        route={route}
+        setRoute={setRoute}
+      />
       <Hero />
     </div>
   );
