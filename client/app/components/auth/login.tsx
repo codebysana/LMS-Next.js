@@ -22,6 +22,9 @@ const schema = Yup.object().shape({
 
 const login: FC<Props> = (props: Props) => {
   const [show, setShow] = useState(false);
+  const formik = useFormik({
+    initialValues: { email: "", password = "" },
+  });
   return <div></div>;
 };
 
