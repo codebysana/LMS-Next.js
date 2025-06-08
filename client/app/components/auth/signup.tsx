@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable react-hooks/rules-of-hooks */
 "use client";
 import React, { FC, useState } from "react";
@@ -16,27 +17,47 @@ type Props = {
 };
 
 const schema = Yup.object().shape({
+  name: Yup.string().required("Enter your name"),
   email: Yup.string()
     .email("Invalid Email!")
     .required("Please enter your email"),
   password: Yup.string().required("Please enter your password!").min(6),
 });
 
-const login: FC<Props> = ({ setRoute }) => {
+const signup: FC<Props> = ({ setRoute }) => {
   const [show, setShow] = useState(false);
 
   const formik = useFormik({
-    initialValues: { email: "", password: "" },
+    initialValues: { name: "", email: "", password: "" },
     validationSchema: schema,
-    onSubmit: async ({ email, password }) => {
-      console.log(email, password);
+    onSubmit: async ({ name, email, password }) => {
+      setRoute("Verification");
     },
   });
   const { errors, touched, values, handleChange, handleSubmit } = formik;
   return (
     <div className="w-full">
-      <h1 className={`${styles.title}`}>Login with LMS</h1>
-      <form onSubmit={handleSubmit} className="px-5 py-5 min-h-[50px]">
+      <h1 className={`${styles.title}`}>Join To LMS</h1>
+      <form onSubmit={handleSubmit} className="px-5 h-full">
+        <div className="mb-5">
+          <label htmlFor="name" className={`${styles.label}`}>
+            Enter your name
+          </label>
+          <input
+            id="name"
+            type="text"
+            placeholder="Enter your name"
+            name=""
+            value={values.name}
+            onChange={handleChange}
+            className={`${errors.name && touched.name && "border-red-500"} ${
+              styles.input
+            }`}
+          />
+          {errors.name && touched.name && (
+            <span className="text-red-500 pt-2 block">{errors.name}</span>
+          )}
+        </div>
         <label htmlFor="email" className={`${styles.label}`}>
           Enter your email
         </label>
@@ -82,12 +103,12 @@ const login: FC<Props> = ({ setRoute }) => {
               onClick={() => setShow(false)}
             />
           )}
-          {errors.email && touched.email && (
-            <span className="text-red-500 pt-2 block">{errors.email}</span>
-          )}
         </div>
+        {errors.email && touched.email && (
+          <span className="text-red-500 pt-2 block">{errors.email}</span>
+        )}
         <div className="w-full mt-5">
-          <input type="submit" value="Login" className={`${styles.button}`} />
+          <input type="submit" value="Sign Up" className={`${styles.button}`} />
         </div>
         <br />
         <h5 className="text-center pt-4 font-Poppins text-[14px] text-black dark:text-white">
@@ -98,12 +119,12 @@ const login: FC<Props> = ({ setRoute }) => {
           <AiFillGithub size={30} className="cursor-pointer ml-2" />
         </div>
         <h5 className="text-center pt-4 font-Poppins text-[14px]">
-          Have not any account?
+          Already have an account?
           <span
             className="text-[#2190ff] pl-1 cursor-pointer"
-            onClick={() => setRoute("Sign-Up")}
+            onClick={() => setRoute("Login")}
           >
-            Sign Up
+            Sign In
           </span>
         </h5>
       </form>
@@ -111,4 +132,4 @@ const login: FC<Props> = ({ setRoute }) => {
   );
 };
 
-export default login;
+export default signup;
