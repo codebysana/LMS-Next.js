@@ -1,11 +1,16 @@
-import React from 'react'
+import React, { FC } from "react";
+import { useFormik } from "formik";
+import * as Yup from "yup";
+import {
+  AiOutlineEye,
+  AiOutlineEyeInvisible,
+  AiFillGithub,
+} from "react-icons/ai";
 
-const login = () => {
-  return (
-    <div>
-      
-    </div>
-  )
-}
+type Props = {};
 
-export default login
+const login: FC<Props> = (props: Props) => {
+  return <div></div>;
+};
+
+export default login;
