@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 import Link from "next/link";
@@ -5,7 +6,8 @@ import React, { FC, useState } from "react";
 import NavItems from "../utils/navItems";
 import ThemeSwitcher from "../utils/themeSwitcher";
 import { HiOutlineMenuAlt3, HiOutlineUserCircle } from "react-icons/hi";
-import customModal from "../utils/customModal";
+import CustomModal from "../utils/customModal";
+import Login from "../components/auth/login";
 
 type Props = {
   open: boolean;
@@ -15,7 +17,7 @@ type Props = {
   setRoute: (route: string) => void;
 };
 
-const Header: FC<Props> = ({ activeItem, open, setOpen, route }) => {
+const Header: FC<Props> = ({ activeItem, open, setOpen, route, setRoute }) => {
   const [active, setActive] = useState(false);
   const [openSidebar, setOpenSidebar] = useState(false);
 
@@ -97,8 +99,15 @@ const Header: FC<Props> = ({ activeItem, open, setOpen, route }) => {
       </div>
       {route === "Login" && (
         <>
-          ( open && (
-          <customModal  />) )
+          {open && (
+            <CustomModal
+              open={open}
+              setOpen={setOpen}
+              setRoute={setRoute}
+              activeItem={activeItem}
+              component={Login}
+            />
+          )}
         </>
       )}
     </div>
