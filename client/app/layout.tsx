@@ -1,8 +1,10 @@
+"use client";
 import { Poppins } from "next/font/google";
 import { Hind } from "next/font/google";
 import { ThemeProvider } from "./utils/theme-provider";
 import "./globals.css";
 import { Toaster } from "react-hot-toast";
+import { Providers } from "./provider";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -26,10 +28,16 @@ export default function RootLayout({
       <body
         className={`${poppins.variable} ${hind.variable} !bg-white bg-no-repeat dark:bg-gradient-to-b dark:from-gray-900 dark:to-black transition duration-300`}
       >
-        <ThemeProvider attribute="data-theme" defaultTheme="light" enableSystem>
-          {children}
-          <Toaster position="top-right" reverseOrder={false}/>
-        </ThemeProvider>
+        <Providers>
+          <ThemeProvider
+            attribute="data-theme"
+            defaultTheme="light"
+            enableSystem
+          >
+            {children}
+            <Toaster position="top-right" reverseOrder={false} />
+          </ThemeProvider>
+        </Providers>
       </body>
     </html>
   );
