@@ -11,6 +11,8 @@ import Login from "../components/auth/login";
 import Signup from "../components/auth/signup";
 import Verification from "../components/auth/verification";
 import { useSelector } from "react-redux";
+import Image from "next/image";
+import avatar from "../../public/assets/avatar.jpg";
 
 type Props = {
   open: boolean;
@@ -43,7 +45,7 @@ const Header: FC<Props> = ({ activeItem, open, setOpen, route, setRoute }) => {
     }
   };
 
-  console.log(user);
+  // console.log(user);
   return (
     <div className="w-full relative">
       <div
@@ -74,11 +76,21 @@ const Header: FC<Props> = ({ activeItem, open, setOpen, route, setRoute }) => {
                   className="cursor-pointer dark:text-white text-black"
                 />
               </div>
-              <HiOutlineUserCircle
-                onClick={() => setOpen(true)}
-                size={25}
-                className="hidden 800px:block cursor-pointer dark:text-white text-black ml-2"
-              />
+              {user ? (
+                <Link href={"/profile"}>
+                  <Image
+                    src={user.avatar ? user.avatar : avatar}
+                    alt=""
+                    className="w-[30px] h-[30px] rounded-full cursor-pointer"
+                  />
+                </Link>
+              ) : (
+                <HiOutlineUserCircle
+                  onClick={() => setOpen(true)}
+                  size={25}
+                  className="hidden 800px:block cursor-pointer dark:text-white text-black ml-2"
+                />
+              )}
             </div>
           </div>
         </div>
