@@ -10,6 +10,7 @@ import CustomModal from "../utils/customModal";
 import Login from "../components/auth/login";
 import Signup from "../components/auth/signup";
 import Verification from "../components/auth/verification";
+import { useSelector } from "react-redux";
 
 type Props = {
   open: boolean;
@@ -22,6 +23,7 @@ type Props = {
 const Header: FC<Props> = ({ activeItem, open, setOpen, route, setRoute }) => {
   const [active, setActive] = useState(false);
   const [openSidebar, setOpenSidebar] = useState(false);
+  const { user } = useSelector((state: any) => state.auth);
 
   if (typeof window !== "undefined") {
     window.addEventListener("scroll", () => {
@@ -40,6 +42,8 @@ const Header: FC<Props> = ({ activeItem, open, setOpen, route, setRoute }) => {
       }
     }
   };
+
+  console.log(user);
   return (
     <div className="w-full relative">
       <div
