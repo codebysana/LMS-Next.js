@@ -7,7 +7,7 @@ import { Toaster } from "react-hot-toast";
 import { Providers } from "./provider";
 import { SessionProvider } from "next-auth/react";
 import { useLoadUserQuery } from "@/redux/features/api/apiSlice";
-import Loader from "./components/loader/Loader"
+import Loader from "./components/loader/Loader";
 
 const poppins = Poppins({
   subsets: ["latin"],
