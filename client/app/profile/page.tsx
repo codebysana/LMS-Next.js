@@ -1,8 +1,11 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 "use client";
 import React, { FC, useState } from "react";
 import Protected from "../hooks/useProtected";
 import Heading from "../utils/Heading";
 import Header from "../components/Header";
+import Profile from "../components/profile/Profile";
+import { useSelector } from "react-redux";
 
 type Props = {};
 
@@ -10,12 +13,13 @@ const page: FC<Props> = (props) => {
   const [open, setOpen] = useState(false);
   const [activeItem, setActiveItem] = useState(0);
   const [route, setRoute] = useState("Login");
+  const { user } = useSelector((state: any) => state.auth);
   return (
     <div>
       <Protected>
         <Heading
-          title="LMS"
-          description="LMS is a platform where students can enroll and learn courses from international teachers."
+          title={`${user?.name} profile`}
+          description="Mentora is a platform where students can enroll and learn courses from international teachers."
           keywords="Programming, MERN, Redux Toolkit, Machine Lerning"
         />
         <Header
@@ -25,6 +29,7 @@ const page: FC<Props> = (props) => {
           route={route}
           setRoute={setRoute}
         />
+        <Profile user={user}/>
       </Protected>
     </div>
   );
