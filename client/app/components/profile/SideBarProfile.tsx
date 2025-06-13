@@ -23,7 +23,7 @@ const SideBarProfile: FC<Props> = ({
   return (
     <div className="w-full">
       <div
-        className={`w-full flex items-center px-3 py-4 cursor-pointer ${
+        className={`w-full h-full flex items-center px-3 py-4 cursor-pointer ${
           active === 1 ? "dark:bg-slate-800 bg-white" : "bg-transparent"
         }`}
         onClick={() => setActive(1)}
@@ -33,7 +33,7 @@ const SideBarProfile: FC<Props> = ({
           alt=""
           className="w-[20px] h-[20px] 600px:w-[30px] 800px:h-[20px] cursor-pointer rounded-full"
         />
-        <h5 className="pl-2 800px:black hidden font-Poppins dark:text-white text-black">
+        <h5 className="pl-2 800px:black hidden font-Poppins dark:text-[#7a939b] text-black">
           My Account
         </h5>
       </div>

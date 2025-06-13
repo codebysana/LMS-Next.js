@@ -79,9 +79,9 @@ const ProfileInfo: FC<Props> = ({ user, avatar }) => {
       </div>
       <br />
       <br />
-      <div className="w-full px-6 md:px-10 mt-8">
+      <div className="w-full">
         <form onSubmit={handleSubmit}>
-          <div className="w-full md:w-1/2 mx-auto pb-4">
+          <div className="w-full md:w-1/2 mx-auto">
             <div className="w-full">
               <label className="block pb-2">Full Name</label>
               <input
@@ -105,7 +105,7 @@ const ProfileInfo: FC<Props> = ({ user, avatar }) => {
             <input
               type="submit"
               value="Update"
-              className="w-full md:w-[200px] h-10 border border-[#37a39a] text-center dark:text-white text-black rounded-md mt-8 cursor-pointer"
+              className="w-full h-10 border border-[#37a39a] text-center dark:text-white text-black rounded-md mt-8 cursor-pointer"
             />
           </div>
         </form>
