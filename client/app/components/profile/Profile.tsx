@@ -3,7 +3,7 @@ import React, { FC, useState } from "react";
 import SideBarProfile from "./SideBarProfile";
 import { useLogoutQuery } from "../../../redux/features/auth/authApi";
 import { signOut } from "next-auth/react";
-import { redirect } from "next/navigation";
+import ProfileInfo from "./ProfileInfo";
 
 type Props = {
   user: any;
@@ -34,11 +34,11 @@ const Profile: FC<Props> = ({ user }) => {
   }
 
   return (
-    <div className="w-[85%] flex mx-auto">
+    <div className="w-[85%] mx-auto flex gap-6 mt-20 mb-20">
       <div
-        className={`w-[60px] 800px:w-[310px] h-[450px] dark:bg-slate-900 bg-white bg-opacity-90 border dark:border-[#ffffff1d] border-[#00000014] rounded-[5px] dark:shadow-sm shadow-sm mt-[80px] mb-[80px] sticky ${
-          scroll ? "top-[120px]" : "top-[30px]"
-        } left-[30px]`}
+        className={`w-[60px] md:w-[310px] h-[450px] dark:bg-slate-900 bg-white bg-opacity-90 border dark:border-white/10 border-black/10 rounded-md shadow-sm sticky ${
+          scroll ? "top-28" : "top-8"
+        }`}
       >
         <SideBarProfile
           user={user}
@@ -47,6 +47,13 @@ const Profile: FC<Props> = ({ user }) => {
           avatar={avatar}
           logoutHandler={logoutHandler}
         />
+      </div>
+      <div className="w-full">
+        {active === 1 && (
+          <div className="w-full h-full bg-transparent">
+            <ProfileInfo user={user} avatar={avatar} />
+          </div>
+        )}
       </div>
     </div>
   );
