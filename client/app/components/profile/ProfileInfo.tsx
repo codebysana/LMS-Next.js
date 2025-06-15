@@ -17,8 +17,9 @@ type Props = {
 const ProfileInfo: FC<Props> = ({ user, avatar }) => {
   const [name, setName] = useState(user.name || "");
   const [loadUser, setLoadUser] = useState(false);
-  const [] = useEditProfileMutation();
   const [updateAvatar, { isSuccess, error }] = useUpdateAvatarMutation();
+  const [editProfile, { isSuccess: success, error: isError }] =
+    useEditProfileMutation();
   const {} = useLoadUserQuery(undefined, { skip: loadUser ? false : true });
 
   const imageHandler = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -35,13 +36,13 @@ const ProfileInfo: FC<Props> = ({ user, avatar }) => {
   };
 
   useEffect(() => {
-    if (isSuccess) {
+    if (isSuccess || success) {
       setLoadUser(true);
     }
-    if (error) {
+    if (error || isError) {
       console.log(error);
     }
-  }, [isSuccess, error]);
+  }, [isSuccess, error, success, isError]);
 
   // useEffect(() => {
   //   if (loadUser) {
@@ -51,7 +52,13 @@ const ProfileInfo: FC<Props> = ({ user, avatar }) => {
   // }, [loadUser]);
 
   const handleSubmit = async (e: any) => {
-    console.log("Submit");
+    e.preventDefault();
+    if (name !== "") {
+      await editProfile({
+        name: name,
+        email: user.email,
+      });
+    }
   };
   return (
     <>
