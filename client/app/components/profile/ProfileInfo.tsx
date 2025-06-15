@@ -15,9 +15,7 @@ const ProfileInfo: FC<Props> = ({ user, avatar }) => {
   const [name, setName] = useState(user.name || "");
   const [loadUser, setLoadUser] = useState(false);
   const [updateAvatar, { isSuccess, error }] = useUpdateAvatarMutation();
-  const { data: loadedUser, refetch } = useLoadUserQuery(undefined, {
-    skip: !loadUser,
-  });
+  const {} = useLoadUserQuery(undefined, { skip: loadUser ? false : true });
 
   const imageHandler = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const fileReader = new FileReader();
@@ -29,24 +27,24 @@ const ProfileInfo: FC<Props> = ({ user, avatar }) => {
         });
       }
     };
-    fileReader.readAsDataURL(e.target.files[0]);
+     fileReader.readAsDataURL(e.target.files[0]);
   };
 
-  //   useEffect(() => {
-  //     if (isSuccess) {
-  //       setLoadUser(true);
-  //     }
-  //     if (error) {
-  //       console.log(error);
-  //     }
-  //   }, [isSuccess, error]);
+    useEffect(() => {
+      if (isSuccess) {
+        setLoadUser(true);
+      }
+      if (error) {
+        console.log(error);
+      }
+    }, [isSuccess, error]);
 
-  useEffect(() => {
-    if (loadUser) {
-      refetch();
-      setLoadUser(false); // Reset after load
-    }
-  }, [loadUser]);
+  // useEffect(() => {
+  //   if (loadUser) {
+  //     refetch();
+  //     setLoadUser(false); // Reset after load
+  //   }
+  // }, [loadUser]);
 
   const handleSubmit = async (e: any) => {
     console.log("Submit");

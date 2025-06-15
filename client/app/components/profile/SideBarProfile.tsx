@@ -23,17 +23,20 @@ const SideBarProfile: FC<Props> = ({
   return (
     <div className="w-full">
       <div
-        className={`w-full h-full flex items-center px-3 py-4 cursor-pointer ${
+        className={`w-full flex items-center px-3 py-4 cursor-pointer ${
           active === 1 ? "dark:bg-slate-800 bg-white" : "bg-transparent"
         }`}
         onClick={() => setActive(1)}
       >
         <Image
-          src={user.avatar || avatar ? user.avatar || avatar : avatarDefault}
+          src={
+            user.avatar || avatar ? user.avatar.url || avatar : avatarDefault
+          }
           alt=""
+          
           className="w-[20px] h-[20px] 600px:w-[30px] 800px:h-[20px] cursor-pointer rounded-full"
         />
-        <h5 className="pl-2 800px:black hidden font-Poppins dark:text-[#7a939b] text-black">
+        <h5 className="pl-2 800px:block hidden font-Poppins dark:text-[#ffffff] text-black">
           My Account
         </h5>
       </div>
@@ -44,7 +47,7 @@ const SideBarProfile: FC<Props> = ({
         onClick={() => setActive(2)}
       >
         <RiLockPasswordLine size={20} fill="#fff" />
-        <h5 className="pl-2 800px:black hidden font-Poppins dark:text-white text-black">
+        <h5 className="pl-2 800px:block hidden font-Poppins dark:text-white text-black">
           Change Password
         </h5>
       </div>
@@ -55,7 +58,7 @@ const SideBarProfile: FC<Props> = ({
         onClick={() => setActive(3)}
       >
         <SiCoursera size={20} fill="#fff" />
-        <h5 className="pl-2 800px:black hidden font-Poppins dark:text-white text-black">
+        <h5 className="pl-2 800px:block hidden font-Poppins dark:text-white text-black">
           Enrolled Courses
         </h5>
       </div>
@@ -66,7 +69,7 @@ const SideBarProfile: FC<Props> = ({
         onClick={() => logoutHandler()}
       >
         <AiOutlineLogout size={20} fill="#fff" />
-        <h5 className="pl-2 800px:black hidden font-Poppins dark:text-white text-black">
+        <h5 className="pl-2 800px:block hidden font-Poppins dark:text-white text-black">
           Logout
         </h5>
       </div>
