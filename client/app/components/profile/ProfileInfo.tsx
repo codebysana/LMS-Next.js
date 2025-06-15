@@ -1,6 +1,9 @@
 import { styles } from "@/app/styles/style";
 import { useLoadUserQuery } from "@/redux/features/api/apiSlice";
-import { useUpdateAvatarMutation } from "@/redux/features/user/userApi";
+import {
+  useEditProfileMutation,
+  useUpdateAvatarMutation,
+} from "@/redux/features/user/userApi";
 import Image from "next/image";
 import React, { FC, useEffect, useState } from "react";
 import { AiOutlineCamera } from "react-icons/ai";
@@ -14,6 +17,7 @@ type Props = {
 const ProfileInfo: FC<Props> = ({ user, avatar }) => {
   const [name, setName] = useState(user.name || "");
   const [loadUser, setLoadUser] = useState(false);
+  const [] = useEditProfileMutation();
   const [updateAvatar, { isSuccess, error }] = useUpdateAvatarMutation();
   const {} = useLoadUserQuery(undefined, { skip: loadUser ? false : true });
 
@@ -27,17 +31,17 @@ const ProfileInfo: FC<Props> = ({ user, avatar }) => {
         });
       }
     };
-     fileReader.readAsDataURL(e.target.files[0]);
+    fileReader.readAsDataURL(e.target.files[0]);
   };
 
-    useEffect(() => {
-      if (isSuccess) {
-        setLoadUser(true);
-      }
-      if (error) {
-        console.log(error);
-      }
-    }, [isSuccess, error]);
+  useEffect(() => {
+    if (isSuccess) {
+      setLoadUser(true);
+    }
+    if (error) {
+      console.log(error);
+    }
+  }, [isSuccess, error]);
 
   // useEffect(() => {
   //   if (loadUser) {
