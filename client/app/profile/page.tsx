@@ -18,7 +18,7 @@ const page: FC<Props> = (props) => {
     <div>
       <Protected>
         <Heading
-          title={`${user?.name} profile`}
+          title={`${user?.name} Profile - LMS`}
           description="Mentora is a platform where students can enroll and learn courses from international teachers."
           keywords="Programming, MERN, Redux Toolkit, Machine Lerning"
         />
