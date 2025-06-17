@@ -1,11 +1,33 @@
-import React, { useState } from "react";
+import { useUpdatePasswordMutation } from "@/redux/features/user/userApi";
+import React, { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 
 const ChangePassword = () => {
   const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
-  const passwordChangeHandler = (e: any) => {};
+  const [updatePassword, { isSuccess, error }] = useUpdatePasswordMutation();
+  const passwordChangeHandler = async (e: any) => {
+    e.preventDefault();
+    if (newPassword !== confirmPassword) {
+      toast.error("Password do not match");
+    } else {
+      await updatePassword({ oldPassword, newPassword });
+    }
+  };
+
+  useEffect(() => {
+    if (isSuccess) {
+      toast.success("Password changed successfully");
+    }
+    if(error){
+      if("data" in error){
+        const errorData = error as any;
+        toast.error(errorData.data.message);
+      }
+    }
+  }, [isSuccess, error]);
   return (
     <>
       <div className="w-full pl-7 px-2 800px:px-5 800px:pl-0">
