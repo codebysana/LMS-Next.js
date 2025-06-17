@@ -8,6 +8,7 @@ import Image from "next/image";
 import React, { FC, useEffect, useState } from "react";
 import { AiOutlineCamera } from "react-icons/ai";
 import avatarIcon from "../../../public/assets/avatar.jpg";
+import toast from "react-hot-toast";
 
 type Props = {
   avatar: string | null;
@@ -42,6 +43,9 @@ const ProfileInfo: FC<Props> = ({ user, avatar }) => {
     if (error || isError) {
       console.log(error);
     }
+    if (success) {
+      toast.success("Profile Updated Successfully");
+    }
   }, [isSuccess, error, success, isError]);
 
   // useEffect(() => {
@@ -56,7 +60,6 @@ const ProfileInfo: FC<Props> = ({ user, avatar }) => {
     if (name !== "") {
       await editProfile({
         name: name,
-        email: user.email,
       });
     }
   };
