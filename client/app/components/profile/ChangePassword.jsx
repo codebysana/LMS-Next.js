@@ -8,7 +8,7 @@ const ChangePassword = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
 
   const [updatePassword, { isSuccess, error }] = useUpdatePasswordMutation();
-  const passwordChangeHandler = async (e: any) => {
+  const passwordChangeHandler = async (e) => {
     e.preventDefault();
     if (newPassword !== confirmPassword) {
       toast.error("Password do not match");
@@ -23,7 +23,7 @@ const ChangePassword = () => {
     }
     if(error){
       if("data" in error){
-        const errorData = error as any;
+        const errorData = error;
         toast.error(errorData.data.message);
       }
     }
