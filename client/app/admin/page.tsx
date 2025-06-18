@@ -3,10 +3,11 @@ import React from "react";
 import Heading from "../utils/Heading";
 import AdminSidebar from "../components/admin/sidebar/AdminSidebar";
 import AdminProtected from "../hooks/adminProtected";
+import DashboardHero from "../components/admin/DashboardHero";
 
 type Props = {};
 
-const adminPage = () => {
+const page = ({}: Props) => {
   return (
     <div>
       <AdminProtected>
@@ -19,11 +20,13 @@ const adminPage = () => {
           <div className="1500px:w-[16%] w-1/5">
             <AdminSidebar />
           </div>
-          <div className="w-[85%]"></div>
+          <div className="w-[85%]">
+            <DashboardHero />
+          </div>
         </div>
       </AdminProtected>
     </div>
   );
 };
 
-export default adminPage;
+export default page;

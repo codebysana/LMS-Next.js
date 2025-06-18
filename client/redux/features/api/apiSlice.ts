@@ -1,9 +1,12 @@
+/* eslint-disable @typescript-eslint/no-require-imports */
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { userLoggedIn } from "../auth/authSlice";
 
 export const apiSlice = createApi({
   reducerPath: "api",
   baseQuery: fetchBaseQuery({
-    baseUrl: process.env.NEXT_PUBLIC_SERVER_URL,
+    baseUrl:
+      process.env.NEXT_PUBLIC_SERVER_URL || "http://localhost:8000/api/v1/",
   }),
   endpoints: (builder) => ({
     refreshToken: builder.query({
@@ -15,7 +18,7 @@ export const apiSlice = createApi({
     }),
     loadUser: builder.query({
       query: (data) => ({
-        url: "load",
+        url: "get-users",
         method: "GET",
         credentials: "include" as const,
       }),
