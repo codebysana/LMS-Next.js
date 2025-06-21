@@ -88,17 +88,17 @@ const AdminSidebar = () => {
           color: `${theme !== "dark" && "#000"}`,
         },
       }}
-      className="!bg-white dark:bg-[#111C43"
+      className="!bg-white dark:bg-[#111C43]"
     >
       <ProSidebar
         collapsed={isCollapsed}
-        style={{
-          position: "fixed",
-          top: 0,
-          left: 0,
-          height: "100vh",
-          width: isCollapsed ? "0%" : "16%",
-        }}
+        // style={{
+        //   position: "fixed",
+        //   top: 0,
+        //   left: 0,
+        //   height: "100vh",
+        //   width: isCollapsed ? "0%" : "16%",
+        // }}
       >
         <Menu iconShape="square">
           <MenuItem
@@ -115,7 +115,7 @@ const AdminSidebar = () => {
                 alignItems="center"
                 ml="15px"
               >
-                <Link href="/">
+                <Link href={"/"}>
                   <h3 className="text-[25px] font-Poppins uppercase dark:text-white text-black">
                     Mentora
                   </h3>
