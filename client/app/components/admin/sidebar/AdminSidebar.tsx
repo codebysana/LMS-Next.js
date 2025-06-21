@@ -6,6 +6,7 @@ import Image from "next/image";
 import React, { FC, JSX, useEffect, useState } from "react";
 import {
   MdArrowBackIos,
+  MdHouse,
   MdManageHistory,
   MdOndemandVideo,
   MdOutlineArrowForwardIos,
@@ -83,6 +84,12 @@ const AdminSidebar = () => {
         "& .pro-inner-item": {
           padding: "5px 35px 5px 20px !important",
           opacity: 1,
+          display: "flex",
+          justifyContent: "justify-center",
+          alignItems: "center",
+          gap: "8px",
+          fontFamily: "Poppins",
+          lineHeight: "20px"
         },
         "& .pro-menu-item": {
           color: `${theme !== "dark" && "#000"}`,
@@ -92,20 +99,23 @@ const AdminSidebar = () => {
     >
       <ProSidebar
         collapsed={isCollapsed}
-        // style={{
-        //   position: "fixed",
-        //   top: 0,
-        //   left: 0,
-        //   height: "100vh",
-        //   width: isCollapsed ? "0%" : "16%",
-        // }}
+        style={{
+          position: "fixed",
+          top: 0,
+          left: 0,
+          height: "100vh",
+          overflowY: "auto",
+          width: "20%",
+        }}
       >
         <Menu iconShape="square">
           <MenuItem
             onClick={() => setIsCollapsed(!isCollapsed)}
             icon={isCollapsed ? <MdOutlineArrowForwardIos /> : undefined}
             style={{
-              margin: "10px 0 20px 0",
+              margin: "0px 0 20px 0",
+              padding: "20px 0px 0px 0px",
+              color: "#fff",
             }}
           >
             {!isCollapsed && (
@@ -116,7 +126,7 @@ const AdminSidebar = () => {
                 ml="15px"
               >
                 <Link href={"/"}>
-                  <h3 className="text-[25px] font-Poppins uppercase dark:text-white text-black">
+                  <h3 className="text-[25px] ml-7 tracking-wider font-Poppins uppercase dark:text-white text-black">
                     Mentora
                   </h3>
                 </Link>
@@ -124,7 +134,7 @@ const AdminSidebar = () => {
                   onClick={() => setIsCollapsed(!isCollapsed)}
                   className="inline-block"
                 >
-                  <MdArrowBackIos className="text-black dark:text-[#fffffffc1" />
+                  <MdArrowBackIos className="text-black dark:text-[#ffffffc1] ml-4" />
                 </IconButton>
               </Box>
             )}
@@ -144,20 +154,23 @@ const AdminSidebar = () => {
                   }}
                 />
               </Box>
-              <Box textAlign="center">
+              <Box
+                textAlign="center"
+                className="flex justify-center items-center gap-3"
+              >
                 <Typography
                   variant="h4"
-                  className="!text[20px] text-black dark:text-[#ffffffc1]"
+                  className="!text-[20px] text-black dark:text-[#ffffffc1]"
                   sx={{ m: "10px 0 0 0" }}
                 >
                   {user?.name}
                 </Typography>
                 <Typography
                   variant="h6"
-                  className="!text[20px] text-black dark:text-[#ffffffc1] capitalize"
-                  sx={{ m: "10px 0 0 0" }}
+                  className="!text-[16px] text-black dark:text-[#ffffffc1] capitalize"
+                  sx={{ m: "15px 0 0 0" }}
                 >
-                  {user?.role}
+                  ({user?.role})
                 </Typography>
               </Box>
             </Box>
@@ -167,17 +180,18 @@ const AdminSidebar = () => {
             <Item
               title="Dashboard"
               to="/admin"
-              icon={<HiOutlineZoomOut />}
+              icon={<MdHouse />}
               selected={selected}
               setSelected={setSelected}
             />
             <Typography
               variant="h6"
-              className="!text[20px] text-black dark:text-[#ffffffc1] capitalize !font-[400]"
-              sx={{ m: "15px 0 5px 25px" }}
+              className="!text-[20px] text-black dark:text-[#ffffffc1] capitalize !font-[400] leading-10"
+              sx={{ m: "15px 0 5px 20px" }}
             >
               {!isCollapsed && "Data"}
             </Typography>
+
             <Item
               title="Users"
               to="/admin/users"
@@ -195,8 +209,8 @@ const AdminSidebar = () => {
             />
             <Typography
               variant="h5"
-              className="!text[20px] text-black dark:text-[#ffffffc1] capitalize !font-[400]"
-              sx={{ m: "15px 0 5px 25px" }}
+              className="!text-[20px] text-black dark:text-[#ffffffc1] capitalize !font-[400] leading-10"
+              sx={{ m: "20px 0 5px 20px" }}
             >
               {!isCollapsed && "Content"}
             </Typography>
@@ -218,8 +232,8 @@ const AdminSidebar = () => {
 
             <Typography
               variant="h5"
-              className="!text[20px] text-black dark:text-[#ffffffc1] capitalize !font-[400]"
-              sx={{ m: "15px 0 5px 25px" }}
+              className="!text-[20px] text-black dark:text-[#ffffffc1] capitalize !font-[400] leading-10"
+              sx={{ m: "20px 0 5px 20px" }}
             >
               {!isCollapsed && "Customization"}
             </Typography>
@@ -246,8 +260,8 @@ const AdminSidebar = () => {
             />
             <Typography
               variant="h5"
-              className="!text[20px] text-black dark:text-[#ffffffc1] capitalize !font-[400]"
-              sx={{ m: "15px 0 5px 25px" }}
+              className="!text-[20px] text-black dark:text-[#ffffffc1] capitalize !font-[400] leading-10"
+              sx={{ m: "20px 0 5px 20px" }}
             >
               {!isCollapsed && "Controllers"}
             </Typography>
@@ -260,8 +274,8 @@ const AdminSidebar = () => {
             />
             <Typography
               variant="h6"
-              className="!text[20px] text-black dark:text-[#ffffffc1] capitalize !font-[400]"
-              sx={{ m: "15px 0 5px 25px" }}
+              className="!text-[20px] text-black dark:text-[#ffffffc1] capitalize !font-[400] leading-10"
+              sx={{ m: "20px 0 5px 20px" }}
             >
               {!isCollapsed && "Analytics"}
             </Typography>
@@ -288,8 +302,8 @@ const AdminSidebar = () => {
             />
             <Typography
               variant="h6"
-              className="!text[20px] text-black dark:text-[#ffffffc1] capitalize !font-[400]"
-              sx={{ m: "15px 0 5px 25px" }}
+              className="!text-[20px] text-black dark:text-[#ffffffc1] capitalize !font-[400] leading-10"
+              sx={{ m: "20px 0 5px 20px" }}
             >
               {!isCollapsed && "Extras"}
             </Typography>

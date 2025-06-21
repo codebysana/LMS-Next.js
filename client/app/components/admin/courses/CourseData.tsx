@@ -1,5 +1,6 @@
 import { styles } from "@/app/styles/style";
 import React, { FC } from "react";
+import { MdAddCircle } from "react-icons/md";
 
 type Props = {
   benefits: { title: string }[];
@@ -18,6 +19,15 @@ const CourseData: FC<Props> = ({
   active,
   setActive,
 }) => {
+  const handleBenefitChange = (index: number, value: any) => {
+    const updateBenefits = [...benefits];
+    updateBenefits[index].title = value;
+    setBenefits(updateBenefits);
+  };
+
+  const handleAddBenefits = () => {
+    setBenefits([...benefits, { title: "" }]);
+  };
   return (
     <div className="w-[80%] m-auto mt-24 block">
       <div>
@@ -37,6 +47,10 @@ const CourseData: FC<Props> = ({
             onChange={(e) => handleBenefitChange(index, e.target.value)}
           />
         ))}
+        <MdAddCircle
+          style={{ margin: "10px 0px", cursor: "pointer", width: "30px" }}
+          onClick={handleAddBenefits}
+        />
       </div>
     </div>
   );
