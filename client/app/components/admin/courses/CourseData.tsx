@@ -28,6 +28,17 @@ const CourseData: FC<Props> = ({
   const handleAddBenefits = () => {
     setBenefits([...benefits, { title: "" }]);
   };
+
+  const handlePrerequisitesChange = (index: number, value: any) => {
+    const updatePrerequisites = [...prerequisites];
+    updatePrerequisites[index].title = value;
+    setBenefits(updatePrerequisites);
+  };
+
+  const handleAddPrerequisites = () => {
+    setPrerequisites([...prerequisites, { title: "" }]);
+  };
+
   return (
     <div className="w-[80%] m-auto mt-24 block">
       <div>
@@ -50,6 +61,29 @@ const CourseData: FC<Props> = ({
         <MdAddCircle
           style={{ margin: "10px 0px", cursor: "pointer", width: "30px" }}
           onClick={handleAddBenefits}
+        />
+      </div>
+      {/* pre-requisites */}
+      <div>
+        <label htmlFor="email" className={`${styles.label} text-[20px]`}>
+          What are the pre-requisites for studentsin this course
+        </label>{" "}
+        <br />
+        {prerequisites.map((prerequisites: any, index: number) => (
+          <input
+            type="text"
+            key={index}
+            name="prerequisites"
+            placeholder="You need basic knowledge of MERN Stack"
+            required
+            className={`${styles.input} my-2`}
+            value={prerequisites.title}
+            onChange={(e) => handlePrerequisitesChange(index, e.target.value)}
+          />
+        ))}
+        <MdAddCircle
+          style={{ margin: "10px 0px", cursor: "pointer", width: "30px" }}
+          onClick={handleAddPrerequisites}
         />
       </div>
     </div>
