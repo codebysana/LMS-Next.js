@@ -25,7 +25,7 @@ const CourseOptions: FC<Props> = ({ active, setActive }) => {
             <FcCheckmark className="text-[25px]" />
             {index !== options.length - 1 && (
               <div
-                className={`absolute h-[30px] w-1 ${
+                className={`absolute h-[30px] w-1 cursor-pointer ${
                   active + 1 > index ? "bg-blue-500" : "bg-[#384766]"
                 } bottom-[-100%]`}
               ></div>
