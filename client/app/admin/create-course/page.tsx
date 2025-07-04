@@ -1,9 +1,9 @@
 "use client";
 import React from "react";
 import AdminSidebar from "../../components/admin/sidebar/AdminSidebar";
-import Heading from "../../../app/utils/Heading";
+import Heading from "../../utils/Heading";
 import CreateCourse from "../../components/admin/courses/CreateCourse";
-import DashboardHeader from "../../../app/components/admin/DashboardHeader";
+import DashboardHeader from "../../components/admin/DashboardHeader";
 
 const page = () => {
   return (

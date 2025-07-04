@@ -13,7 +13,7 @@ const CreateCourse = () => {
     estimatedPrice: "",
     tags: "",
     level: "",
-    demoURL: "",
+    demoUrl: "",
     thumbnail: "",
   });
 
@@ -21,7 +21,7 @@ const CreateCourse = () => {
   const [prerequisites, setPrerequisites] = useState([{ title: "" }]);
   const [courseContentData, setCourseContentData] = useState([
     {
-      videoURL: "",
+      videoUrl: "",
       title: "",
       description: "",
       videoSection: "Untitled Section",

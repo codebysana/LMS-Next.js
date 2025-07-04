@@ -77,9 +77,11 @@ const AdminSidebar = () => {
         },
         "& .pro-inner-item:hover": {
           color: "#868dfb !important",
+          cursor: "pointer",
         },
         "& .pro-menu-item.active": {
           color: "#6870fa !important",
+          cursor: "pointer",
         },
         "& .pro-inner-item": {
           padding: "5px 35px 5px 20px !important",
@@ -89,7 +91,7 @@ const AdminSidebar = () => {
           alignItems: "center",
           gap: "8px",
           fontFamily: "Poppins",
-          lineHeight: "20px"
+          lineHeight: "20px",
         },
         "& .pro-menu-item": {
           color: `${theme !== "dark" && "#000"}`,
@@ -143,7 +145,7 @@ const AdminSidebar = () => {
             <Box mb="25px">
               <Box display="flex" justifyContent="center" alignItems="center">
                 <Image
-                  src={user.avatar ? user.avatar.url : avatarDefault}
+                  src={user?.avatar ? user?.avatar.url : avatarDefault}
                   alt="profile-user"
                   width={100}
                   height={100}

@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { IoMdCheckMark } from "react-icons/md";
+import { FcCheckmark } from "react-icons/fc";
 
 type Props = {
   active: number;
@@ -22,7 +22,7 @@ const CourseOptions: FC<Props> = ({ active, setActive }) => {
               active + 1 > index ? "bg-blue-500" : "bg-[#38766]"
             } relative`}
           >
-            <IoMdCheckMark className="text-[25px]" />
+            <FcCheckmark className="text-[25px]" />
             {index !== options.length - 1 && (
               <div
                 className={`absolute h-[30px] w-1 ${
