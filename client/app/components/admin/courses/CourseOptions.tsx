@@ -19,7 +19,7 @@ const CourseOptions: FC<Props> = ({ active, setActive }) => {
         <div key={index} className={`w-full flex py-5`}>
           <div
             className={`w-[35px] h-[35px] rounded-full flex items-center justify-center ${
-              active + 1 > index ? "bg-blue-500" : "bg-[#38766]"
+              active + 1 > index ? "bg-blue-500" : "bg-[#384766]"
             } relative`}
           >
             <FcCheckmark className="text-[25px]" />

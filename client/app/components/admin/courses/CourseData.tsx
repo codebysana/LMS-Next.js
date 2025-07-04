@@ -35,7 +35,7 @@ const CourseData: FC<Props> = ({
           What are the benefits for studentsin this course
         </label>{" "}
         <br />
-        {benefits.map((benefits: any, index: number) => (
+        {benefits.map((benefit: any, index: number) => (
           <input
             type="text"
             key={index}
@@ -43,7 +43,7 @@ const CourseData: FC<Props> = ({
             placeholder="You will be able to build a full stack LMS Platform..."
             required
             className={`${styles.input} my-2`}
-            value={benefits.title}
+            value={benefit.title}
             onChange={(e) => handleBenefitChange(index, e.target.value)}
           />
         ))}
