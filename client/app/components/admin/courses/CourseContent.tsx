@@ -1,6 +1,8 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { styles } from "@/app/styles/style";
 import React, { FC, useState } from "react";
-import { AiOutlineDelete } from "react-icons/ai";
+import toast from "react-hot-toast";
+import { AiOutlineDelete, AiOutlinePlayCircle } from "react-icons/ai";
 import { BiSolidPencil } from "react-icons/bi";
 import { BsLink45Deg } from "react-icons/bs";
 import { MdDelete, MdOutlineKeyboardArrowDown } from "react-icons/md";
@@ -44,6 +46,35 @@ const CourseContent: FC<Props> = ({
     const updatedData = [...courseContentData];
     updatedData[index].links.push({ title: "", url: "" });
     setCourseContentData(updatedData);
+  };
+
+  const newContentHandler = (item: any) => {
+    if (
+      item.title === "" ||
+      item.description === "" ||
+      item.videoUrl === "" ||
+      item.links[0].url === ""
+    ) {
+      toast.error("Please fill all the fields first.");
+    } else {
+      let newVideoSection = "";
+      if (courseContentData.length > 0) {
+        const lastVideoSection =
+          courseContentData[courseContentData.length - 1].videoSection;
+        // use the last videoSection if available, else use user input
+        if (lastVideoSection) {
+          newVideoSection = lastVideoSection;
+        }
+      }
+      const newContent = {
+        videUrl: "",
+        title: "",
+        description: "",
+        videoSection: newVideoSection,
+        links: [{ title: "", url: "" }],
+      };
+      setCourseContentData([...courseContentData, newContent]);
+    }
   };
 
   return (
@@ -218,13 +249,25 @@ const CourseContent: FC<Props> = ({
                       </p>
                     </div>
                   </>
-                )} 
+                )}
                 <br />
-                
+                {/* add new content */}
+                {index === courseContentData.length - 1 && (
+                  <div>
+                    <p
+                      className="flex items-center tet-[18px] dark:text-white text-black cursor-pointer"
+                      onClick={(e: any) => newContentHandler(item)}
+                    >
+                      <AiOutlinePlayCircle className="mr-2" />
+                      Add New Content
+                    </p>
+                  </div>
+                )}
               </div>
             </>
           );
         })}
+        <br />
       </form>
     </div>
   );
