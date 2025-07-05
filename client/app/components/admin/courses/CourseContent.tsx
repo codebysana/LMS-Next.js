@@ -1,6 +1,8 @@
 import { styles } from "@/app/styles/style";
 import React, { FC, useState } from "react";
+import { AiOutlineDelete } from "react-icons/ai";
 import { BiSolidPencil } from "react-icons/bi";
+import { BsLink45Deg } from "react-icons/bs";
 import { MdDelete, MdOutlineKeyboardArrowDown } from "react-icons/md";
 
 type Props = {
@@ -30,6 +32,18 @@ const CourseContent: FC<Props> = ({
     const updatedCollapsed = [...isCollapsed];
     updatedCollapsed[index] = !updatedCollapsed[index];
     setIsCollapsed(updatedCollapsed);
+  };
+
+  const handleRemoveLink = (index: number, linkIndex: number) => {
+    const updatedData = [...courseContentData];
+    updatedData[index].links.splice(linkIndex, 1);
+    setCourseContentData(updatedData);
+  };
+
+  const handleAddLink = (index: number) => {
+    const updatedData = [...courseContentData];
+    updatedData[index].links.push({ title: "", url: "" });
+    setCourseContentData(updatedData);
   };
 
   return (
@@ -104,9 +118,109 @@ const CourseContent: FC<Props> = ({
                   <>
                     <div className="my-3">
                       <label className={styles.label}>Video Title</label>
+                      <input
+                        type="text"
+                        placeholder="Project Plan..."
+                        className={`${styles.input}`}
+                        value={item.title}
+                        onChange={(e) => {
+                          const updatedData = [...courseContentData];
+                          updatedData[index].title = e.target.value;
+                          setCourseContentData(updatedData);
+                        }}
+                      />
+                    </div>
+
+                    <div className="mb-3">
+                      <label className={styles.label}>Video URL</label>
+                      <input
+                        type="text"
+                        placeholder="Project Plan..."
+                        className={`${styles.input}`}
+                        value={item.videoUrl}
+                        onChange={(e) => {
+                          const updatedData = [...courseContentData];
+                          updatedData[index].videoUrl = e.target.value;
+                          setCourseContentData(updatedData);
+                        }}
+                      />
+                    </div>
+                    <div className="my-3">
+                      <label className={styles.label}>Video Description</label>
+                      <textarea
+                        rows={8}
+                        cols={30}
+                        placeholder="Write a description"
+                        className={`${styles.input} !h-min py-2`}
+                        value={item.description}
+                        onChange={(e) => {
+                          const updatedData = [...courseContentData];
+                          updatedData[index].description = e.target.value;
+                          setCourseContentData(updatedData);
+                        }}
+                      />
+                      <br />
+                    </div>
+                    {item?.links.map((link: any, linkIndex: number) => (
+                      <div className="mb-3 block" key={linkIndex}>
+                        <div className="w-full flex items-center justify-between">
+                          <label className={styles.label}>
+                            Link {linkIndex + 1}
+                          </label>
+                          <AiOutlineDelete
+                            className={`${
+                              linkIndex === 0
+                                ? "cursoe-no-drop"
+                                : "cursor-pointer"
+                            } text-black dark:text-white text-[20px]`}
+                            onClick={() =>
+                              linkIndex === 0
+                                ? null
+                                : handleRemoveLink(index, linkIndex)
+                            }
+                          />
+                        </div>
+                        <input
+                          type="text"
+                          placeholder="Source Code... (Link Title)"
+                          className={`${styles.input}`}
+                          value={link.title}
+                          onChange={(e) => {
+                            const updatedData = [...courseContentData];
+                            updatedData[index].links[linkIndex].title =
+                              e.target.value;
+                            setCourseContentData(updatedData);
+                          }}
+                        />
+
+                        <input
+                          type="url"
+                          placeholder="Source Code Url... (Link Url)"
+                          className={`${styles.input} mt-6`}
+                          value={link.url}
+                          onChange={(e) => {
+                            const updatedData = [...courseContentData];
+                            updatedData[index].links[linkIndex].url =
+                              e.target.value;
+                            setCourseContentData(updatedData);
+                          }}
+                        />
+                      </div>
+                    ))}
+                    <br />
+                    {/* {add link button} */}
+                    <div className="inline-block mb-4">
+                      <p
+                        className="flex items-center text-[18px] dark:text-white  text-black cursor-pointer"
+                        onClick={() => handleAddLink(index)}
+                      >
+                        <BsLink45Deg className="mr-2" /> Add Link
+                      </p>
                     </div>
                   </>
-                )}
+                )} 
+                <br />
+                
               </div>
             </>
           );
