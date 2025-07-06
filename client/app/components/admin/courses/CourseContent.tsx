@@ -90,6 +90,34 @@ const CourseContent: FC<Props> = ({
       courseContentData[courseContentData.length - 1].links[0].url === ""
     ) {
       toast.error("Please fill all the fields first!");
+    } else {
+      setActiveSection(activeSection + 1);
+      const newContent = {
+        videUrl: "",
+        title: "",
+        description: "",
+        videoSection: `Untitled Section ${activeSection}`,
+        links: [{ title: "", url: "" }],
+      };
+      setCourseContentData([...courseContentData, newContent]);
+    }
+  };
+
+  const prevButton = () => {
+    setActive(active - 1);
+  };
+  const handleOptions = () => {
+    if (
+      courseContentData[courseContentData.length - 1].title === "" ||
+      courseContentData[courseContentData.length - 1].description === "" ||
+      courseContentData[courseContentData.length - 1].videoUrl === "" ||
+      courseContentData[courseContentData.length - 1].links[0].title === "" ||
+      courseContentData[courseContentData.length - 1].links[0].url === ""
+    ) {
+      toast.error("Selection can't be empty!");
+    } else {
+      setActive(active + 1);
+      handleCourseSubmit();
     }
   };
 
@@ -292,6 +320,24 @@ const CourseContent: FC<Props> = ({
           Add New Section
         </div>
       </form>
+      <br />
+      <div className="w-full flex items-center justify-between">
+        <div
+          className="w-full 800px:w-[180px] flex items-center justify-center h-[40px] bg-[#37a39a] text-center text-[#fff] rounded -mt-8 cursor-pointer"
+          onClick={() => prevButton()}
+        >
+          Prev
+        </div>
+        <div
+          className="w-full 800px:w-[180px] flex items-center justify-center h-[40px] bg-[#37a39a] text-center text-[#fff] rounded -mt-8 cursor-pointer"
+          onClick={() => handleOptions()}
+        >
+          Next
+        </div>
+      </div>
+      <br />
+      <br />
+      <br />
     </div>
   );
 };
