@@ -55,7 +55,7 @@ const navItems: React.FC<Props> = ({ activeItem, isMobile }) => {
             <span
               className={`text-[25px] font-Poppins font-[500] text-black dark:text-white`}
             >
-              LMS
+              ScholarNet
             </span>
           </div>
           {navItemsData &&

@@ -94,7 +94,7 @@ const Header: FC<Props> = ({ activeItem, open, setOpen, route, setRoute }) => {
                 href={"/"}
                 className={`text-[25px] font-poppins font-[500] text-black dark:text-white`}
               >
-                LMS
+                ScholarNet
               </Link>
             </div>
             <div className="flex items-center">

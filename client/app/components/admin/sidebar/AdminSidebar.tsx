@@ -128,15 +128,15 @@ const AdminSidebar = () => {
                 ml="15px"
               >
                 <Link href={"/"}>
-                  <h3 className="text-[25px] ml-7 tracking-wider font-Poppins uppercase dark:text-white text-black">
-                    Mentora
+                  <h3 className="text-[25px] tracking-wider font-Poppins uppercase dark:text-white text-black">
+                    ScholarNet
                   </h3>
                 </Link>
                 <IconButton
                   onClick={() => setIsCollapsed(!isCollapsed)}
-                  className="inline-block"
+                  className="inline-block "
                 >
-                  <MdArrowBackIos className="text-black dark:text-[#ffffffc1] ml-4" />
+                  <MdArrowBackIos className="text-black dark:text-[#ffffffc1] ml-1 cursor-pointer" />
                 </IconButton>
               </Box>
             )}
