@@ -10,6 +10,7 @@ import ejs from "ejs";
 import path from "node:path";
 import sendMail from "../utils/sendMail";
 import notificationModel from "../models/notificationModel";
+import axios from "axios";
 
 // upload course
 export const uploadCourse = catchAsyncError(
@@ -201,7 +202,7 @@ export const addQuestions = catchAsyncError(
         user: req.user?._id,
         title: "New Question Received",
         message: `You have a new question in ${courseContent.title}`,
-      })
+      });
 
       // save the updated course
       await course?.save();
@@ -273,7 +274,7 @@ export const addAnswer = catchAsyncError(
           user: req.user?._id,
           title: "New Question Reply Received",
           message: `You have a new question reply in ${courseContent.title}`,
-        })
+        });
       } else {
         const data = {
           name: question.user.name,
@@ -399,7 +400,7 @@ export const reviewsReply = catchAsyncError(
       if (!reviewData.commentReplies) {
         reviewData.commentReplies = [];
       }
-      
+
       reviewData.commentReplies?.push(replyData);
       await course?.save();
       res.status(200).json({
@@ -413,35 +414,60 @@ export const reviewsReply = catchAsyncError(
 );
 
 // get all courses - only for admin
-export const getAllUsers = catchAsyncError(async(req:Request, res:Response, next: NextFunction)=>{
-  try{
-    const users = await courseModel.find();
-    getAllCoursesService(res);
-  }
-   catch (error: any) {
+export const getAllUsers = catchAsyncError(
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const users = await courseModel.find();
+      getAllCoursesService(res);
+    } catch (error: any) {
       return next(new ErrorHandler(error.message, 400));
+    }
   }
-})
+);
 
 // delete course - only for admin
-export const deleteCourse = catchAsyncError(async(req:Request, res:Response, next: NextFunction)=>{
-  try{
-    const {id} = req.params;
-    const course = await courseModel.findById(id);
+export const deleteCourse = catchAsyncError(
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const { id } = req.params;
+      const course = await courseModel.findById(id);
 
-    if(!course){
-      return next(new ErrorHandler("Course not found", 404));
-    }
+      if (!course) {
+        return next(new ErrorHandler("Course not found", 404));
+      }
 
-    await course.deleteOne({id}); 
-    await redis.del(id);
+      await course.deleteOne({ id });
+      await redis.del(id);
 
-    res.status(201).json({
-      success: true,
-      message: "Course deleted successfully"
-    })
-  }
-   catch (error: any) {
+      res.status(201).json({
+        success: true,
+        message: "Course deleted successfully",
+      });
+    } catch (error: any) {
       return next(new ErrorHandler(error.message, 400));
+    }
   }
-})
+);
+
+// generate video url
+export const generateVideoUrl = catchAsyncError(
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const { videoId } = req.body;
+      const response = await axios.post(
+        `https://dev.vdocipher.com/api/videos/${videoId}/otp`,
+        { ttl: 300 },
+        {
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            Authorization: `Apisecret ${process.env.VDOCIPHER_API_SECRET}`,
+          },
+        }
+      );
+      res.json(response.data);
+    } catch (error: any) {
+      return next(new ErrorHandler(error.message, 400));
+    }
+  }
+);

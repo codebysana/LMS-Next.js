@@ -5,6 +5,7 @@ import {
   addQuestions,
   addReview,
   deleteCourse,
+  generateVideoUrl,
   getAllCourses,
   getCourse,
   getCourseByUser,
@@ -56,12 +57,14 @@ router.get(
   getAllCourses
 );
 
+// video url
+router.post("/getVdoCipherOTP", generateVideoUrl);
+
 router.delete(
   "/delete-course/:id",
   isAuthenticated,
   authorizeRoles("admin"),
   deleteCourse
 );
-
 
 export default router;
