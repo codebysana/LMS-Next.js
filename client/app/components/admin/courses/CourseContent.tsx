@@ -2,7 +2,11 @@
 import { styles } from "@/app/styles/style";
 import React, { FC, useState } from "react";
 import toast from "react-hot-toast";
-import { AiOutlineDelete, AiOutlinePlayCircle } from "react-icons/ai";
+import {
+  AiOutlineDelete,
+  AiOutlinePlayCircle,
+  AiOutlinePlusCircle,
+} from "react-icons/ai";
 import { BiSolidPencil } from "react-icons/bi";
 import { BsLink45Deg } from "react-icons/bs";
 import { MdDelete, MdOutlineKeyboardArrowDown } from "react-icons/md";
@@ -74,6 +78,18 @@ const CourseContent: FC<Props> = ({
         links: [{ title: "", url: "" }],
       };
       setCourseContentData([...courseContentData, newContent]);
+    }
+  };
+
+  const addNewSection = () => {
+    if (
+      courseContentData[courseContentData.length - 1].title === "" ||
+      courseContentData[courseContentData.length - 1].description === "" ||
+      courseContentData[courseContentData.length - 1].videoUrl === "" ||
+      courseContentData[courseContentData.length - 1].links[0].title === "" ||
+      courseContentData[courseContentData.length - 1].links[0].url === ""
+    ) {
+      toast.error("Please fill all the fields first!");
     }
   };
 
@@ -268,6 +284,13 @@ const CourseContent: FC<Props> = ({
           );
         })}
         <br />
+        <div
+          className="flex items-center text-[20px] dark:text-white text-black cursor-pointer"
+          onClick={() => addNewSection()}
+        >
+          <AiOutlinePlusCircle className="mr-2" />
+          Add New Section
+        </div>
       </form>
     </div>
   );
