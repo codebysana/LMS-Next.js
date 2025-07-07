@@ -23,13 +23,36 @@ router.post("/activate-user", activateUser);
 router.post("/login", userLogin);
 router.get("/logout", isAuthenticated, userLogout);
 router.get("/refresh", updateAccessToken);
-router.get("/user-details", isAuthenticated, getUserInfo);
+router.get("/user-details", updateAccessToken, isAuthenticated, getUserInfo);
 router.post("/social-auth", socialAuth);
-router.put("/update-user", isAuthenticated, updateUser);
-router.put("/update-password", isAuthenticated, updatePassword);
-router.put("/update-image", isAuthenticated, updateProfile);
-router.get("/get-users", isAuthenticated, authorizeRoles("admin"), getAllUsers);
-router.put("/update-user-role", isAuthenticated, authorizeRoles("admin"), updateUserRole);
-router.delete("/delete-user/:id", isAuthenticated, authorizeRoles("admin"), deleteUser);
+router.put("/update-user", updateAccessToken, isAuthenticated, updateUser);
+router.put(
+  "/update-password",
+  updateAccessToken,
+  isAuthenticated,
+  updatePassword
+);
+router.put("/update-image", updateAccessToken, isAuthenticated, updateProfile);
+router.get(
+  "/get-users",
+  updateAccessToken,
+  isAuthenticated,
+  authorizeRoles("admin"),
+  getAllUsers
+);
+router.put(
+  "/update-user-role",
+  updateAccessToken,
+  isAuthenticated,
+  authorizeRoles("admin"),
+  updateUserRole
+);
+router.delete(
+  "/delete-user/:id",
+  updateAccessToken,
+  isAuthenticated,
+  authorizeRoles("admin"),
+  deleteUser
+);
 
 export default router;

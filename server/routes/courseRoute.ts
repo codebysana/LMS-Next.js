@@ -13,11 +13,15 @@ import {
   updateCourse,
   uploadCourse,
 } from "../controllers/courseController";
-import { authorizeRoles } from "../controllers/userController";
+import {
+  authorizeRoles,
+  updateAccessToken,
+} from "../controllers/userController";
 const router = express.Router();
 
 router.post(
   "/create-course",
+  updateAccessToken,
   isAuthenticated,
   authorizeRoles("admin"),
   uploadCourse
@@ -25,6 +29,7 @@ router.post(
 
 router.put(
   "/update-course/:id",
+  updateAccessToken,
   isAuthenticated,
   authorizeRoles("admin"),
   updateCourse
@@ -34,16 +39,22 @@ router.get("/get-course/:id", getCourse);
 
 // router.get("/get-courses", getAllCourses);
 
-router.get("/get-course-content/:id", isAuthenticated, getCourseByUser);
+router.get(
+  "/get-course-content/:id",
+  updateAccessToken,
+  isAuthenticated,
+  getCourseByUser
+);
 
-router.put("/add-question", isAuthenticated, addQuestions);
+router.put("/add-question", updateAccessToken, isAuthenticated, addQuestions);
 
-router.put("/add-answer", isAuthenticated, addAnswer);
+router.put("/add-answer", updateAccessToken, isAuthenticated, addAnswer);
 
-router.put("/add-review/:id", isAuthenticated, addReview);
+router.put("/add-review/:id", updateAccessToken, isAuthenticated, addReview);
 
 router.put(
   "/add-reply",
+  updateAccessToken,
   isAuthenticated,
   authorizeRoles("admin"),
   reviewsReply
@@ -62,6 +73,7 @@ router.post("/getVdoCipherOTP", generateVideoUrl);
 
 router.delete(
   "/delete-course/:id",
+  updateAccessToken,
   isAuthenticated,
   authorizeRoles("admin"),
   deleteCourse
