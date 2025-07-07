@@ -4,7 +4,7 @@ import Heading from "@/app/utils/Heading";
 import DashboardHero from "@/app/components/admin/DashboardHero";
 import AdminSidebar from "@/app/components/admin/sidebar/AdminSidebar";
 import AdminProtected from "@/app/hooks/adminProtected";
-import AllCourses from "../../components/admin/allCourses";
+import AllUsers from "../../components/admin/users/allUsers";
 
 type Props = {};
 
@@ -23,7 +23,7 @@ const page = () => {
           </div>
           <div className="w-[85%]">
             <DashboardHero />
-            <AllCourses />
+            <AllUsers />
           </div>
         </div>
       </AdminProtected>

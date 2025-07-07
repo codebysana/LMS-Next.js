@@ -1,38 +1,30 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable @typescript-eslint/no-unused-expressions */
-import React from "react";
+import React, { FC, useState } from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import { Box, Button } from "@mui/material";
-import { AiFillEdit, AiOutlineDelete } from "react-icons/ai";
+import { AiFillEdit, AiOutlineDelete, AiOutlineMail } from "react-icons/ai";
 import { useTheme } from "next-themes";
 import Loader from "../loader/Loader";
 import { format } from "timeago.js";
+import { useGetAllUsersQuery } from "@/redux/features/user/userApi";
+import { styles } from "@/app/styles/style";
 
-type Props = {};
+type Props = {
+  isTeam: boolean;
+};
 
-const allCourses = () => {
+const allUsers: FC<Props> = ({ isTeam }) => {
   const { theme, setTheme } = useTheme();
-  const { isoLoading, data, error } = useGetAllCoursesQuery({});
+  const [active, setActive] = useState(false);
+  const { isLoading, data, error } = useGetAllUsersQuery({});
   const columns = [
-    { field: "id", headerName: "ID", flex: 0.5 },
-    { field: "title", headerName: "Course Title", flex: 1 },
-    { field: "ratings", headerName: "Ratings", flex: 0.5 },
-    { field: "purchased", headerName: "Purchased", flex: 0.5 },
-    { field: "created_at", headerName: "Created At", flex: 0.5 },
-    {
-      field: "  ",
-      headerName: "Edit",
-      flex: 0.2,
-      renderCell: (params: any) => {
-        return (
-          <>
-            <Button>
-              <AiFillEdit className="dark:text-white text-black" size={20} />
-            </Button>
-          </>
-        );
-      },
-    },
+    { field: "id", headerName: "ID", flex: 0.3 },
+    { field: "name", headerName: "Name", flex: 0.5 },
+    { field: "email", headerName: "Email", flex: 0.5 },
+    { field: "role", headerName: "Role", flex: 0.5 },
+    { field: "courses", headerName: "Purchased Courses", flex: 0.5 },
+    { field: "created_at", headerName: "Joined At", flex: 0.5 },
 
     {
       field: " ",
@@ -51,20 +43,23 @@ const allCourses = () => {
         );
       },
     },
+
+    {
+      field: " ",
+      headerName: "Email",
+      flex: 0.2,
+      renderCell: (params: any) => {
+        return (
+          <>
+            <a href={`mailto:${params.row.email}`}>
+              <AiOutlineMail className="dark:text-white text-black" size={20} />
+            </a>
+          </>
+        );
+      },
+    },
   ];
 
-  {
-    data &&
-      data.courses.forEach((item: any) => {
-        rows.push({
-          id: item._id,
-          title: item.name,
-          ratings: item.ratings,
-          purchased: item.purchased,
-          created_at: format(item.createdAt),
-        });
-      });
-  }
   const rows: any = [
     {
       id: "1234",
@@ -74,12 +69,39 @@ const allCourses = () => {
       created_at: "01/01/17",
     },
   ];
+
+  if (isTeam) {
+    const newData =
+      data && data.users.filter((item: any) => item.role === "admin");
+
+    newData &&
+      newData.forEach((item: any) => {
+        rows.push({
+          id: item._id,
+          name: item.name,
+          email: item.email,
+          role: item.role,
+          courses: item.courses,
+          created_at: format(item.createdAt),
+        });
+      });
+  } else {
+  }
+
   return (
     <div className="mt-[120px]">
-      {isoLoading ? (
+      {isLoading ? (
         <Loader />
       ) : (
         <Box m="20px">
+          <div className="w-full flex justify-end">
+            <div
+              className={`${styles.button} !w-[200px] !h-[35px] dark:bg-[#57c7a3] dark:border dark:border-[#ffffff6c]`}
+              onClick={() => setActive(!active)}
+            >
+              Add New Member
+            </div>
+          </div>
           <Box
             m="40px 0 0 0"
             height="80vh"
@@ -142,4 +164,4 @@ const allCourses = () => {
   );
 };
 
-export default allCourses;
+export default allUsers;
