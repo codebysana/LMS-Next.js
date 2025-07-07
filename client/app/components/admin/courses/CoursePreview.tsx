@@ -1,7 +1,8 @@
 import React, { FC } from "react";
 import CoursePlayer from "../../../utils/CoursePlayer";
-import { styles } from "@/app/styles/style.js";
-import Ratings from "@/app/utils/Ratings.jsx";
+import { styles } from "../../../../app/styles/style.js";
+import Ratings from "../../../../app/utils/Ratings.jsx";
+import { IoCheckmarkDoneOutline } from "react-icons/io5";
 
 type Props = {
   active: number;
@@ -22,6 +23,14 @@ const CoursePreview: FC<Props> = ({
     100;
 
   const discountPercentagePrice = discountPercentage.toFixed(0);
+
+  const prevButton = () => {
+    setActive(active - 1);
+  };
+
+  const createCourse = () => {
+    handleCourseCreate();
+  };
   return (
     <div className="w-[90%] m-auto py-5 mb-5">
       <div className="w-full relative">
@@ -80,6 +89,57 @@ const CoursePreview: FC<Props> = ({
             </div>
             <h5>0 Students</h5>
           </div>
+          <br />
+          <h1 className="text-[25px] font-Poppins font-[600]">
+            What you will learn from this course
+          </h1>
+        </div>
+        {courseData?.benefits?.map((item: any, index: number) => (
+          <div className="w-full flex 800px:items-center py-2" key={index}>
+            <div className="w-[15px] mr-1">
+              <IoCheckmarkDoneOutline size={20} />
+            </div>
+            <p className="pl-2">{item.title}</p>
+          </div>
+        ))}
+        <br />
+        <br />
+        {/* prerequisites */}
+        <h1 className="text-[25px] font-Poppins font-[600]">
+          What are the prerequisites for starting this course?
+        </h1>
+        {courseData?.prerequisites?.map((item: any, index: number) => (
+          <div className="w-full flex 800px:items-center py-2" key={index}>
+            <div className="w-[15px] mr-1">
+              <IoCheckmarkDoneOutline size={20} />
+            </div>
+            <p className="pl-2">{item.title}</p>
+          </div>
+        ))}
+        {/* course description */}
+        <div className="w-full">
+          <h1 className="text-[25px] font-Poppins font-[600]">
+            Course Details
+          </h1>
+          <p className="text-[18px] mt-[20px] whitespace-pre-line w-full overflow-hidden">
+            {courseData?.description}
+          </p>
+        </div>
+        <br />
+        <br />
+      </div>
+      <div className="w-full flex items-center justify-between">
+        <div
+          className="w-full 800px:w-[180px] flex items-center justify-center h-[40px] bg-[#37a39a] text-center text-[#FFF] rounded mt-8 cursor-pointer"
+          onClick={() => prevButton()}
+        >
+          Prev
+        </div>
+        <div
+          className="w-full 800px:w-[180px] flex items-center justify-center h-[40px] bg-[#37a39a] text-center text-[#fff] rounded mt-8 cursor-pointer"
+          onClick={() => createCourse()}
+        >
+          Create
         </div>
       </div>
     </div>
