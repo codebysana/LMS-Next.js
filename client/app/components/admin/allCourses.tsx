@@ -10,7 +10,7 @@ import { format } from "timeago.js";
 
 type Props = {};
 
-const allCourses = () => {
+const AllCourses = () => {
   const { theme, setTheme } = useTheme();
   const { isoLoading, data, error } = useGetAllCoursesQuery({});
   const columns = [
@@ -142,4 +142,4 @@ const allCourses = () => {
   );
 };
 
-export default allCourses;
+export default AllCourses;

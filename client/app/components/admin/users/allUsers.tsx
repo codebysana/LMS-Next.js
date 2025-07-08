@@ -14,7 +14,7 @@ type Props = {
   isTeam: boolean;
 };
 
-const allUsers: FC<Props> = ({ isTeam }) => {
+const AllUsers: FC<Props> = ({ isTeam }) => {
   const { theme, setTheme } = useTheme();
   const [active, setActive] = useState(false);
   const { isLoading, data, error } = useGetAllUsersQuery({});
@@ -164,4 +164,4 @@ const allUsers: FC<Props> = ({ isTeam }) => {
   );
 };
 
-export default allUsers;
+export default AllUsers;
