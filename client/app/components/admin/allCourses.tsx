@@ -1,18 +1,28 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable @typescript-eslint/no-unused-expressions */
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { DataGrid } from "@mui/x-data-grid";
-import { Box, Button } from "@mui/material";
+import { Box, Button, Modal } from "@mui/material";
 import { AiFillEdit, AiOutlineDelete } from "react-icons/ai";
 import { useTheme } from "next-themes";
 import Loader from "../loader/Loader";
 import { format } from "timeago.js";
+import { styles } from "@/app/styles/style";
+import { useDeleteCourseMutation } from "@/redux/features/courses/coursesApi";
+import toast from "react-hot-toast";
+import Link from "next/link";
 
 type Props = {};
 
 const AllCourses = () => {
   const { theme, setTheme } = useTheme();
-  const { isoLoading, data, error } = useGetAllCoursesQuery({});
+  const [open, setOpen] = useState(false);
+  const [courseId, setCourseId] = useState("");
+  const { isLoading, data, refetch } = useGetAllCoursesQuery(
+    {},
+    { refetchOnMountOrArgChange: true }
+  );
+  const [deleteCourse, { isSuccess, error }] = useDeleteCourseMutation({});
   const columns = [
     { field: "id", headerName: "ID", flex: 0.5 },
     { field: "title", headerName: "Course Title", flex: 1 },
@@ -26,9 +36,9 @@ const AllCourses = () => {
       renderCell: (params: any) => {
         return (
           <>
-            <Button>
+            <Link href={`/admin/edit-course/${params.row.id}`}>
               <AiFillEdit className="dark:text-white text-black" size={20} />
-            </Button>
+            </Link>
           </>
         );
       },
@@ -41,7 +51,12 @@ const AllCourses = () => {
       renderCell: (params: any) => {
         return (
           <>
-            <Button>
+            <Button
+              onClick={() => {
+                setOpen(!open);
+                setCourseId(params.row.id);
+              }}
+            >
               <AiOutlineDelete
                 className="dark:text-white text-black"
                 size={20}
@@ -74,9 +89,29 @@ const AllCourses = () => {
       created_at: "01/01/17",
     },
   ];
+
+  useEffect(() => {
+    if (isSuccess) {
+      setOpen(false);
+      refetch();
+      toast.success("Course created successfully");
+    }
+    if (error) {
+      if ("data" in error) {
+        const errorMessage = error as any;
+        toast.error(errorMessage.data.message);
+      }
+    }
+  }, [isSuccess, error]);
+
+  const handleDelete = async () => {
+    const id = courseId;
+    await deleteCourse(id);
+  };
+
   return (
     <div className="mt-[120px]">
-      {isoLoading ? (
+      {isLoading ? (
         <Loader />
       ) : (
         <Box m="20px">
@@ -136,6 +171,33 @@ const AllCourses = () => {
           >
             <DataGrid checkboxSelection rows={rows} columns={columns} />
           </Box>
+          {open && (
+            <>
+              <Modal
+                open={open}
+                onClose={() => setOpen(!open)}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+              />
+              <Box className="absolute top-[50%] left-[50%] -translate-x-1/2 -translate-y-1/2">
+                <h1 className={`${styles.title}`}>
+                  Are you sure you want to delete this course
+                </h1>
+                <div className="flex w-full items-center justify-between mb-6 mt-5">
+                  <div
+                    className={`${styles.button} !w-[120px] h-[30px] bg-[#57c7a3]`}
+                    onClick={() => setOpen(!open)}
+                  >
+                    Cancel
+                  </div>
+                  <div
+                    className={`${styles.button} !w-[120px] h-[30px] bg-[#d63f00]`}
+                    onClick={handleDelete}
+                  ></div>
+                </div>
+              </Box>
+            </>
+          )}
         </Box>
       )}
     </div>
@@ -143,3 +205,9 @@ const AllCourses = () => {
 };
 
 export default AllCourses;
+function useGetAllCoursesQuery(
+  arg0: {},
+  p0: { refetchOnMountOrArgChange: boolean }
+): { isLoading: any; data: any } {
+  throw new Error("Function not implemented.");
+}
