@@ -16,7 +16,7 @@ const page = ({ params }: any) => {
         description="ScholarNet is a platform for students to learn and get help from teachers."
         keywords="Programming, Mern, Redux, Machine Learning"
       />
-      <div className="flex">
+      <div className="flex h-screen">
         <div className="1500px:w-[16%] w-1/5">
           <AdminSidebar />
         </div>

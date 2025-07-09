@@ -4,10 +4,12 @@ import AdminSidebar from "../../components/admin/sidebar/AdminSidebar";
 import Heading from "../../utils/Heading";
 import CreateCourse from "../../components/admin/courses/CreateCourse";
 import DashboardHeader from "../../components/admin/DashboardHeader";
+// import AdminProtected from "@/app/hooks/adminProtected";
 
 const page = () => {
   return (
     <div>
+      {/* <AdminProtected> */}
       <Heading
         title="ScholarNet - Admin"
         description="ScholarNet is a platform for students to learn and get help from teachers."
@@ -22,6 +24,7 @@ const page = () => {
           <CreateCourse />
         </div>
       </div>
+      {/* </AdminProtected> */}
     </div>
   );
 };
