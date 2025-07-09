@@ -43,9 +43,3 @@ const CoursePlayer: FC<Props> = ({ videoUrl }) => {
 };
 
 export default CoursePlayer;
-
-// <div style="padding-top:56%;position:relative;">
-{
-  /* <iframe src="https://player.vdocipher.com/v2/?otp=20160313versASE323Z4Jmtrp7Q4ThQn4JKRQFSnSml3qGwgo0V78Oawsg3zwCzx&playbackInfo=eyJ2aWRlb0lkIjoiYjUyN2VjY2NhMjY4NDkzNzhjNDEzYjI4MjgyMGQ5MDIifQ==" style="border:0;max-width:100%;position:absolute;top:0;left:0;height:100%;width:100%;" allowFullScreen="true" allow="encrypted-media"></iframe>
-</div> */
-}
