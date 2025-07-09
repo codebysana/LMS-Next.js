@@ -1,11 +1,11 @@
-import React from 'react'
+import React, { useState } from "react";
 
 const EditHero = () => {
-  return (
-    <div>
-      
-    </div>
-  )
-}
+  const [image, setImage] = useState("");
+  const [title, setTitle] = useState("");
+  const [subTitle, setSubTitle] = useState("");
 
-export default EditHero
+  return <div></div>;
+};
+
+export default EditHero;
