@@ -70,6 +70,8 @@ const EditCourse: FC<Props> = ({ id }) => {
   ]);
   const [courseData, setCourseData] = useState({});
 
+  console.log(courseData);
+
   useEffect(() => {
     if (editCourseData) {
       setCourseInfo({

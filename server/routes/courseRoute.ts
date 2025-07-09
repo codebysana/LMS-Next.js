@@ -6,6 +6,7 @@ import {
   addReview,
   deleteCourse,
   generateVideoUrl,
+  getAllAdminCourses,
   getAllCourses,
   getCourse,
   getCourseByUser,
@@ -37,7 +38,12 @@ router.put(
 
 router.get("/get-course/:id", getCourse);
 
-// router.get("/get-courses", getAllCourses);
+router.get(
+  "/get-admin-courses",
+  isAuthenticated,
+  authorizeRoles("admin"),
+  getAllAdminCourses
+);
 
 router.get(
   "/get-course-content/:id",

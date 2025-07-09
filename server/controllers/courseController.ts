@@ -405,7 +405,7 @@ export const reviewsReply = catchAsyncError(
 );
 
 // get all courses - only for admin
-export const getAllUsers = catchAsyncError(
+export const getAllAdminCourses = catchAsyncError(
   async (req: Request, res: Response, next: NextFunction) => {
     try {
       const users = await courseModel.find();

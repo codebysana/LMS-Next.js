@@ -237,7 +237,7 @@ const CourseContent: FC<Props> = ({
                       />
                       <br />
                     </div>
-                    {/* {item?.links.map((link: any, linkIndex: number) => (
+                    {item?.links.map((link: any, linkIndex: number) => (
                       <div className="mb-3 block" key={linkIndex}>
                         <div className="w-full flex items-center justify-between">
                           <label className={styles.label}>
@@ -282,7 +282,7 @@ const CourseContent: FC<Props> = ({
                           }}
                         />
                       </div>
-                    ))} */}
+                    ))}
                     <br />
                     {/* {add link button} */}
                     <div className="inline-block mb-4">
