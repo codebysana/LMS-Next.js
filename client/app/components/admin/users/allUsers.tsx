@@ -32,7 +32,7 @@ const AllUsers: FC<Props> = ({ isTeam }) => {
     useDeleteUserMutation({});
 
   useEffect(() => {
-    if (updatedError) {
+    if (updateError) {
       if ("data" in updateError) {
         const errorMessage = updateError as any;
         toast.error(errorMessage.data.message);

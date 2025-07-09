@@ -12,8 +12,8 @@ const page = ({}: Props) => {
     <div>
       <AdminProtected>
         <Heading
-          title="LMS - Admin"
-          description="LMS is a platform for students to learn and get help from community."
+          title="ScholarNet - Admin"
+          description="ScholarNet is a platform for students to learn and get help from community."
           keywords="Programming, Mern, Redux, Machine Learning"
         />
         <div className="flex h-[200vh]">

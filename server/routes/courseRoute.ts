@@ -69,13 +69,19 @@ router.put(
 // for admin
 router.get(
   "/get-courses",
-  isAuthenticated,
-  authorizeRoles("admin"),
+  // isAuthenticated,
+  // authorizeRoles("admin"),
   getAllCourses
 );
 
+
 // video url
-router.post("/getVdoCipherOTP", generateVideoUrl);
+router.post(
+  "/getVdoCipherOTP",
+  isAuthenticated,
+  authorizeRoles("admin"),
+  generateVideoUrl
+);
 
 router.delete(
   "/delete-course/:id",

@@ -15,7 +15,7 @@ import {
   userLogin,
   userLogout,
 } from "../controllers/userController";
-import { getAllUsers } from "../controllers/courseController";
+// import { getAllAdminCourses } from "../controllers/courseController";
 const router = express.Router();
 
 router.post("/registration", registerUser);
@@ -33,13 +33,14 @@ router.put(
   updatePassword
 );
 router.put("/update-image", updateAccessToken, isAuthenticated, updateProfile);
-router.get(
-  "/get-users",
-  updateAccessToken,
-  isAuthenticated,
-  authorizeRoles("admin"),
-  getAllUsers
-);
+
+// router.get(
+//   "/get-users",
+//   updateAccessToken,
+//   isAuthenticated,
+//   authorizeRoles("admin"),
+//   getAllAdminCourses
+// );
 router.put(
   "/update-user-role",
   updateAccessToken,
