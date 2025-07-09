@@ -7,6 +7,7 @@ import CourseContent from "./CourseContent";
 import CoursePreview from "./CoursePreview";
 import {
   useCreateCourseMutation,
+  useEditCourseMutation,
   useGetAllCoursesQuery,
 } from "@/redux/features/courses/coursesApi";
 import { redirect } from "next/navigation";
@@ -17,9 +18,8 @@ type Props = {
 };
 
 const EditCourse: FC<Props> = ({ id }) => {
-  console.log(id);
-
-  const { isLoading, data, refetch } = useGetAllCoursesQuery(
+  const [editCourse, { isSuccess, error }] = useEditCourseMutation();
+  const { data, refetch } = useGetAllCoursesQuery(
     {},
     { refetchOnMountOrArgChange: true }
   );
@@ -27,18 +27,18 @@ const EditCourse: FC<Props> = ({ id }) => {
   const editCourseData = data && data.courses.find((i: any) => i._id === id);
   console.log(editCourseData);
 
-  //   useEffect(() => {
-  //     if (isSuccess) {
-  //       toast.success("Course created successfully");
-  //       redirect("/admin/all-courses");
-  //     }
-  //     if (error) {
-  //       if ("data" in error) {
-  //         const errorMessage = error as any;
-  //         toast.error(errorMessage.data.message);
-  //       }
-  //     }
-  //   }, [isLoading, isSuccess, error]);
+  useEffect(() => {
+    if (isSuccess) {
+      toast.success("Course Updated Successfully");
+      redirect("/admin/all-courses");
+    }
+    if (error) {
+      if ("data" in error) {
+        const errorMessage = error as any;
+        toast.error(errorMessage.data.message);
+      }
+    }
+  }, [isSuccess, error]);
 
   const [active, setActive] = useState(0);
   const [courseInfo, setCourseInfo] = useState({
@@ -134,6 +134,7 @@ const EditCourse: FC<Props> = ({ id }) => {
   // console.log(courseData);
   const handleCourseCreate = async (e: any) => {
     const data = courseData;
+    await editCourse({ id: editCourseData?._id, data });
   };
   return (
     <div className="w-full flex min-h-screen">
@@ -176,6 +177,7 @@ const EditCourse: FC<Props> = ({ id }) => {
             setActive={setActive}
             courseData={courseData}
             handleCourseCreate={handleCourseCreate}
+            isEdit={true}
           />
         )}
       </div>
