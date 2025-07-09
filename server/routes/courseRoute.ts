@@ -78,8 +78,6 @@ router.get(
 // video url
 router.post(
   "/getVdoCipherOTP",
-  isAuthenticated,
-  authorizeRoles("admin"),
   generateVideoUrl
 );
 
