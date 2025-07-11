@@ -113,7 +113,7 @@ const CoursePreview: FC<Props> = ({
         {courseData?.prerequisites?.map((item: any, index: number) => (
           <div className="w-full flex 800px:items-center py-2" key={index}>
             <div className="w-[15px] mr-1">
-              <IoCheckmarkDoneOutline size={} />
+              <IoCheckmarkDoneOutline size={20} />
             </div>
             <p className="pl-2">{item.title}</p>
           </div>
