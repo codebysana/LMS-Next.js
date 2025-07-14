@@ -5,7 +5,7 @@ import { DataGrid } from "@mui/x-data-grid";
 import { Box, Button, Modal } from "@mui/material";
 import { AiFillEdit, AiOutlineDelete } from "react-icons/ai";
 import { useTheme } from "next-themes";
-import Loader from "../loader/Loader";
+import Loader from "../../loader/Loader";
 import { format } from "timeago.js";
 import { styles } from "@/app/styles/style";
 import { useDeleteCourseMutation } from "@/redux/features/courses/coursesApi";
@@ -18,10 +18,11 @@ const AllCourses = () => {
   const { theme, setTheme } = useTheme();
   const [open, setOpen] = useState(false);
   const [courseId, setCourseId] = useState("");
-  const { isLoading, data, refetch } = useGetAllCoursesQuery(
-    {},
-    { refetchOnMountOrArgChange: true }
-  );
+  const {
+    isLoading,
+    data,
+    refetch,
+  } = useGetAllCoursesQuery({}, { refetchOnMountOrArgChange: true });
   const [deleteCourse, { isSuccess, error }] = useDeleteCourseMutation({});
   const columns = [
     { field: "id", headerName: "ID", flex: 0.5 },
@@ -81,13 +82,13 @@ const AllCourses = () => {
       });
   }
   const rows: any = [
-    {
-      id: "1234",
-      title: "React",
-      purchased: "30",
-      ratings: "5",
-      created_at: "01/01/17",
-    },
+    // {
+    //   id: "1234",
+    //   title: "React",
+    //   purchased: "30",
+    //   ratings: "5",
+    //   created_at: "01/01/17",
+    // },
   ];
 
   useEffect(() => {
@@ -205,9 +206,10 @@ const AllCourses = () => {
 };
 
 export default AllCourses;
-function useGetAllCoursesQuery(
-  arg0: {},
-  p0: { refetchOnMountOrArgChange: boolean }
-): { isLoading: any; data: any } {
-  throw new Error("Function not implemented.");
-}
+
+// function useGetAllCoursesQuery(
+//   arg0: {},
+//   p0: { refetchOnMountOrArgChange: boolean }
+// ): { isLoading: any; data: any } {
+//   throw new Error("Function not implemented.");
+// }

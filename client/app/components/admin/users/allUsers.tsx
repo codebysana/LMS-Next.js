@@ -5,9 +5,13 @@ import { DataGrid } from "@mui/x-data-grid";
 import { Box, Button, Modal } from "@mui/material";
 import { AiOutlineDelete, AiOutlineMail } from "react-icons/ai";
 import { useTheme } from "next-themes";
-import Loader from "../loader/Loader";
+import Loader from "../../loader/Loader"
 import { format } from "timeago.js";
-import { useGetAllUsersQuery } from "@/redux/features/user/userApi";
+import {
+  useGetAllUsersQuery,
+  useUpdateUserRoleMutation,
+  useDeleteUserMutation,
+} from "@/redux/features/user/userApi";
 import { styles } from "@/app/styles/style";
 import toast from "react-hot-toast";
 

@@ -4,7 +4,7 @@ import Heading from "@/app/utils/Heading";
 import DashboardHero from "@/app/components/admin/DashboardHero";
 import AdminSidebar from "@/app/components/admin/sidebar/AdminSidebar";
 import AdminProtected from "@/app/hooks/adminProtected";
-import AllCourses from "../../components/admin/AllCourses";
+import AllCourses from "../../components/admin/courses/AllCourses";
 
 type Props = {};
 
