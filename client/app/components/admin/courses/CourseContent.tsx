@@ -203,7 +203,7 @@ const CourseContent: FC<Props> = ({
                         type="text"
                         placeholder="Project Plan..."
                         className={`${styles.input}`}
-                        value={item.title}
+                        value={typeof item.title === "string" ? item.title : ""}
                         onChange={(e) => {
                           const updatedData = [...courseContentData];
                           updatedData[index].title = e.target.value;
