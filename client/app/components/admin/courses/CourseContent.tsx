@@ -93,9 +93,9 @@ const CourseContent: FC<Props> = ({
     } else {
       setActiveSection(activeSection + 1);
       const newContent = {
-        videUrl: "",
         title: "",
         description: "",
+        videUrl: "",
         videoSection: `Untitled Section ${activeSection}`,
         links: [{ title: "", url: "" }],
       };
@@ -106,6 +106,7 @@ const CourseContent: FC<Props> = ({
   const prevButton = () => {
     setActive(active - 1);
   };
+
   const handleOptions = () => {
     if (
       courseContentData[courseContentData.length - 1].title === "" ||
@@ -145,7 +146,11 @@ const CourseContent: FC<Props> = ({
                           ? "w-[170px]"
                           : "w-min"
                       } font-Poppins cursor-pointer dark:text-white text-black bg-transparent outline-none`}
-                      value={item.videoSection}
+                      value={
+                        typeof item.videoSection === "string"
+                          ? item.videoSection
+                          : ""
+                      }
                       onChange={(e) => {
                         const updatedData = [...courseContentData];
                         updatedData[index].videoSection = e.target.value;
