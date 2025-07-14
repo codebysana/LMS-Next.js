@@ -10,18 +10,6 @@ import { redirect } from "next/navigation";
 import toast from "react-hot-toast";
 
 const CreateCourse = () => {
-  const [active, setActive] = useState(0);
-  const [courseInfo, setCourseInfo] = useState({
-    name: "",
-    description: "",
-    price: "",
-    estimatedPrice: "",
-    tags: "",
-    level: "",
-    demoUrl: "",
-    thumbnail: "",
-  });
-
   const [createCourse, { isLoading, isSuccess, error }] =
     useCreateCourseMutation();
 
@@ -37,6 +25,18 @@ const CreateCourse = () => {
       }
     }
   }, [isLoading, isSuccess, error]);
+
+  const [active, setActive] = useState(0);
+  const [courseInfo, setCourseInfo] = useState({
+    name: "",
+    description: "",
+    price: "",
+    estimatedPrice: "",
+    tags: "",
+    level: "",
+    demoURL: "",
+    thumbnail: "",
+  });
 
   const [benefits, setBenefits] = useState([{ title: "" }]);
   const [prerequisites, setPrerequisites] = useState([{ title: "" }]);
@@ -89,7 +89,7 @@ const CreateCourse = () => {
       tags: courseInfo.tags,
       thumbnail: courseInfo.thumbnail,
       level: courseInfo.level,
-      demoUrl: courseInfo.demoUrl,
+      demoURL: courseInfo.demoURL,
       totalVideos: courseContentData.length,
       benefits: formattedBenefits,
       prerequisites: formattedPrerequisites,
@@ -146,7 +146,9 @@ const CreateCourse = () => {
             active={active}
             setActive={setActive}
             courseData={courseData}
-            handleCourseCreate={handleCourseCreate} isEdit={false}          />
+            handleCourseCreate={handleCourseCreate}
+            isEdit={false}
+          />
         )}
       </div>
       <div className="w-[20%] t-[100px] h-screen fixed z-[-1] top-18 right-0">

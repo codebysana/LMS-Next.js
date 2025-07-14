@@ -71,7 +71,7 @@ const CourseContent: FC<Props> = ({
         }
       }
       const newContent = {
-        videUrl: "",
+        videoUrl: "",
         title: "",
         description: "",
         videoSection: newVideoSection,
@@ -95,7 +95,7 @@ const CourseContent: FC<Props> = ({
       const newContent = {
         title: "",
         description: "",
-        videUrl: "",
+        videoUrl: "",
         videoSection: `Untitled Section ${activeSection}`,
         links: [{ title: "", url: "" }],
       };
@@ -203,7 +203,7 @@ const CourseContent: FC<Props> = ({
                         type="text"
                         placeholder="Project Plan..."
                         className={`${styles.input}`}
-                        value={typeof item.title === "string" ? item.title : ""}
+                        value={item.title}
                         onChange={(e) => {
                           const updatedData = [...courseContentData];
                           updatedData[index].title = e.target.value;
@@ -226,6 +226,7 @@ const CourseContent: FC<Props> = ({
                         }}
                       />
                     </div>
+
                     <div className="my-3">
                       <label className={styles.label}>Video Description</label>
                       <textarea
