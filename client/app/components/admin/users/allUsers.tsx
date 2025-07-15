@@ -92,7 +92,7 @@ const AllUsers: FC<Props> = ({ isTeam }) => {
     },
 
     {
-      field: " ",
+      field: "  ",
       headerName: "Email",
       flex: 0.2,
       renderCell: (params: any) => {

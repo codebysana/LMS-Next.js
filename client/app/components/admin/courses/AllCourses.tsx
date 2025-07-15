@@ -207,6 +207,10 @@ const AllCourses = () => {
 
 export default AllCourses;
 
+
+function useGetAllCoursesQuery(arg0: {}, arg1: { refetchOnMountOrArgChange: boolean; }): { isLoading: any; data: any; refetch: any; } {
+  throw new Error("Function not implemented.");
+}
 // function useGetAllCoursesQuery(
 //   arg0: {},
 //   p0: { refetchOnMountOrArgChange: boolean }

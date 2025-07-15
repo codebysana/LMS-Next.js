@@ -6,7 +6,6 @@ import CourseData from "./CourseData";
 import CourseContent from "./CourseContent";
 import CoursePreview from "./CoursePreview";
 import {
-  useCreateCourseMutation,
   useEditCourseMutation,
   useGetAllCoursesQuery,
 } from "@/redux/features/courses/coursesApi";
