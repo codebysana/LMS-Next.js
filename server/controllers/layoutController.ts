@@ -15,7 +15,7 @@ export const createLayout = catchAsyncError(
         return next(new ErrorHandler(`${type} already exist`, 400));
       }
       if (type === "Banner") {
-        const { image, title, subTitle } = req.body;
+        const { image, title, subtitle } = req.body;
         const uploadBanner = await cloudinary.v2.uploader.upload(image, {
           folder: "layout",
         });
@@ -27,7 +27,7 @@ export const createLayout = catchAsyncError(
               url: uploadBanner.secure_url,
             },
             title,
-            subTitle,
+            subtitle,
           },
         };
         await layoutModel.create(banner);
