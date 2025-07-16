@@ -1,4 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
+import { styles } from "@/app/styles/style";
 import { useGetHeroDataQuery } from "@/redux/features/layout/layoutApi";
 import React, { FC, useEffect, useState } from "react";
 import { AiOutlineCamera } from "react-icons/ai";
@@ -12,42 +13,89 @@ const EditHero: FC<Props> = (props: Props) => {
   });
 
   useEffect(() => {
-    if (data) {
+    console.log("API data", data);
+    if (data?.layout?.banner) {
       setTitle(data?.layout?.banner.title);
       setSubTitle(data?.layout?.banner.subTitle);
-      setImage(data?.layout?.banner.image?.url);
+      setImage(data?.layout?.banner.image);
     }
-  }, []);
+  }, [data]);
 
-  const handleUpdateImage = (e:any) => {
+  const handleUpdateImage = (e: any) => {};
 
-  };
+  const handleEdit = () => {};
 
   return (
-    <>
-      <div className="w-full 1000px:flex items-center">
-        <div className="absolute top-[100px] 1000px:top-[unset] 1500px:h-[700px] 1500px:w-[700px] 1100px:h-[500px] 1100px:w-[500px] h-[50vh] w-[50vh] hero-animation rounded-[50%] 1100px:left-[18rem] 1500px:left-[21rem]">
-          <div className="1000px:w-[40%] flex 1000px:min-h-screen items-center justify-end pt-[70px] 1000px:pt-[0] z-10">
-            <img
-              src={image}
-              alt=""
-              className="object-contain 1100px:max-w-[90%] w-[90%] 1500px:max-w-[85%] h-[auto] z-[10]"
-            />
-            <input
-              type="file"
-              name=""
-              id="banner"
-              accept="image/*"
-              onChange={handleUpdateImage}
-              className="hidden"
-            />
-            <label htmlFor="banner" className="ABSOLUTE bottom-0 right-0 z-20">
-              <AiOutlineCamera className="dark:text-white text-black text-[18px] cursor-pointer" />
-            </label>
-          </div>
+    <div className="w-full min-h-screen bg-white dark:bg-[#0a0d1c] 1000px:flex items-center px-14 pt-20 gap-7 transition-colors duration-300">
+      {/* Image Section */}
+      <div className="w-full 1000px:w-[45%] flex items-center justify-center relative mb-12 1000px:mb-0">
+        <div
+          className="w-[300px] h-[300px] 1100px:w-[400px] 1100px:h-[400px] 1500px:w-[500px] 1500px:h-[500px] rounded-full 
+                    bg-gradient-to-b from-[#cfd9ff] to-[#ffffff] dark:from-[#1b1e35] dark:to-[#0a0d1c]
+                    flex items-center justify-center transition-colors duration-300"
+        >
+          <img
+            src={image}
+            alt="edit image"
+            className="w-[85%] h-full object-contain z-10"
+          />
+          <input
+            type="file"
+            id="banner"
+            accept="image/*"
+            onChange={handleUpdateImage}
+            className="hidden"
+          />
+          <label htmlFor="banner" className="absolute bottom-20 right-14 z-20">
+            <AiOutlineCamera className="text-black dark:text-white text-[20px] cursor-pointer transition-colors duration-300" />
+          </label>
         </div>
       </div>
-    </>
+
+      {/* Text Section */}
+      <div className="w-full 1000px:w-[55%] flex flex-col justify-center text-left">
+        <textarea
+          className="overflow-hidden resize-none w-full bg-transparent text-[32px] 1000px:text-[50px] 1500px:text-[60px] font-bold leading-tight font-sans outline-none 
+                 text-black dark:text-white transition-colors duration-300"
+          placeholder="Improve Your Online Learning Experience Better Instantly"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+          rows={3}
+        />
+        <br />
+        <textarea
+          value={subTitle}
+          onChange={(e) => setSubTitle(e.target.value)}
+          placeholder="We have 40k+ online courses & 500k+ registered students. Find your desired course from here."
+          className="overflow-hidden resize-none w-full font-medium text-[16px] 1000px:text-[18px] bg-transparent font-sans outline-none 
+                 text-[#000000ac] dark:text-[#edfff4] transition-colors duration-300"
+          rows={3}
+        />
+        <br />
+        <div
+          className={`mt-6 ${
+            styles.button
+          } w-[120px] h-[45px] text-center flex items-center justify-center rounded 
+                  bg-[#cccccc34] text-black dark:text-white transition-colors duration-300
+        ${
+          data?.layout?.banner?.title !== title ||
+          data?.layout?.banner?.subTitle !== subTitle ||
+          data?.layout?.banner?.image !== image
+            ? "cursor-pointer bg-[#42d383]"
+            : "cursor-not-allowed"
+        }`}
+          onClick={
+            data?.layout?.banner?.title !== title ||
+            data?.layout?.banner?.subTitle !== subTitle ||
+            data?.layout?.banner?.image !== image
+              ? handleEdit
+              : () => null
+          }
+        >
+          Save
+        </div>
+      </div>
+    </div>
   );
 };
 
