@@ -86,6 +86,7 @@ export const editLayout = catchAsyncError(
           : await cloudinary.v2.uploader.upload(image, {
               folder: "layout",
             });
+            
         const banner = {
           type: "Banner",
           image: {

@@ -1,16 +1,24 @@
 /* eslint-disable @next/next/no-img-element */
 import { styles } from "@/app/styles/style";
-import { useGetHeroDataQuery } from "@/redux/features/layout/layoutApi";
+import {
+  useEditLayoutMutation,
+  useGetHeroDataQuery,
+} from "@/redux/features/layout/layoutApi";
 import React, { FC, useEffect, useState } from "react";
+import toast from "react-hot-toast";
 import { AiOutlineCamera } from "react-icons/ai";
 
 const EditHero: FC<Props> = (props: Props) => {
   const [image, setImage] = useState("");
   const [title, setTitle] = useState("");
   const [subTitle, setSubTitle] = useState("");
-  const { data } = useGetHeroDataQuery("Banner", {
+  const { data, refetch } = useGetHeroDataQuery("Banner", {
     refetchOnMountOrArgChange: true,
   });
+
+  const [editLayout, { isLoading, isSuccess, error }] = useEditLayoutMutation(
+    {}
+  );
 
   useEffect(() => {
     console.log("API data", data);
@@ -19,11 +27,39 @@ const EditHero: FC<Props> = (props: Props) => {
       setSubTitle(data?.layout?.banner.subTitle);
       setImage(data?.layout?.banner.image);
     }
-  }, [data]);
+    if (isSuccess) {
+      refetch();
+      toast.success("Layout Updated Successfully");
+    }
+    if (error) {
+      if ("data" in error) {
+        const errorData = error as any;
+        toast.error(errorData?.data?.message);
+      }
+    }
+  }, [data, isSuccess, error]);
 
-  const handleUpdateImage = (e: any) => {};
+  const handleUpdate = (e: any) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (e: any) => {
+        if (reader.readyState === 2) {
+          setImage(e.target.result as string);
+        }
+      };
+      reader.readAsDataURL(file);
+    }
+  };
 
-  const handleEdit = () => {};
+  const handleEdit = async () => {
+    await editLayout({
+      type: "Banner",
+      image,
+      title,
+      subTitle,
+    });
+  };
 
   return (
     <div className="w-full min-h-screen bg-white dark:bg-[#0a0d1c] 1000px:flex items-center px-14 pt-20 gap-7 transition-colors duration-300">
@@ -43,7 +79,7 @@ const EditHero: FC<Props> = (props: Props) => {
             type="file"
             id="banner"
             accept="image/*"
-            onChange={handleUpdateImage}
+            onChange={handleUpdate}
             className="hidden"
           />
           <label htmlFor="banner" className="absolute bottom-20 right-14 z-20">
@@ -69,8 +105,7 @@ const EditHero: FC<Props> = (props: Props) => {
           placeholder="We have 40k+ online courses & 500k+ registered students. Find your desired course from here."
           className="overflow-hidden resize-none w-full font-medium text-[16px] 1000px:text-[18px] bg-transparent font-sans outline-none 
                  text-[#000000ac] dark:text-[#edfff4] transition-colors duration-300"
-          rows={3}
-        />
+        ></textarea>
         <br />
         <div
           className={`mt-6 ${
