@@ -34,6 +34,7 @@ const CreateCourse = () => {
     estimatedPrice: "",
     tags: "",
     level: "",
+    categories: "",
     demoURL: "",
     thumbnail: "",
   });
@@ -46,6 +47,7 @@ const CreateCourse = () => {
       title: "",
       description: "",
       videoSection: "Untitled Section",
+      videoDuration: "",
       links: [
         {
           title: "",
