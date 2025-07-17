@@ -51,7 +51,9 @@ const EditFaqs = () => {
     return JSON.stringify(originalQuestions) === JSON.stringify(newQuestions);
   };
 
-  
+  const isAnyQuestionEmpty = (questions: any[]) => {
+    return questions.some((q) => q.question === "" || q.answer === "");
+  };
 
   return (
     <div className="w-[90%] 800px:w-[80%] m-auto mt-[120px]">
