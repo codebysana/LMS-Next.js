@@ -1,6 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import { styles } from "@/app/styles/style";
-import React, { FC, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import EditCategories from "../customization/EditCategories";
 import { useGetHeroDataQuery } from "@/redux/features/layout/layoutApi";
 
@@ -18,9 +18,14 @@ const CourseInformation: FC<Props> = ({
 }) => {
   const [dragging, setDragging] = useState(false);
 
-  const { data, isLoading, refetch } = useGetHeroDataQuery("Categories", {
-    refetchOnMountOrArgChange: true,
-  });
+  const { data } = useGetHeroDataQuery("Categories", {});
+  const [categories, setCategories] = useState([]);
+
+  useEffect(() => {
+    if (data) {
+      setCategories(data.layout.categories);
+    }
+  }, [data]);
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
@@ -113,7 +118,7 @@ const CourseInformation: FC<Props> = ({
               className={`${styles.input}`}
             />
           </div>
-          <div className="w-[45%]">
+          <div className="w-[50%]">
             <label className={`${styles.label}`}>Estimated Price</label>
             <input
               type="number"
@@ -150,7 +155,15 @@ const CourseInformation: FC<Props> = ({
             <label className={`${styles.label} w-[50%]`}>
               Course Categories
             </label>
-            <select name="" id="">
+            <select
+              name=""
+              id=""
+              className={`${styles.input}`}
+              value={courseInfo.category}
+              onChange={(e: any) =>
+                setCourseInfo({ ...courseInfo, category: e.target.value })
+              }
+            >
               <option value="">Select Category</option>
               {categories.map((item: any) => (
                 <option value={item._id} key={item._id}>

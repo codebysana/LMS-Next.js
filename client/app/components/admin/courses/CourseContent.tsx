@@ -216,12 +216,29 @@ const CourseContent: FC<Props> = ({
                       <label className={styles.label}>Video URL</label>
                       <input
                         type="text"
-                        placeholder="Project Plan..."
+                        placeholder="yrtry3yuejs"
                         className={`${styles.input}`}
                         value={item.videoUrl}
                         onChange={(e) => {
                           const updatedData = [...courseContentData];
                           updatedData[index].videoUrl = e.target.value;
+                          setCourseContentData(updatedData);
+                        }}
+                      />
+                    </div>
+
+                    <div className="mb-3">
+                      <label className={styles.label}>
+                        Video Duration (in mintues)
+                      </label>
+                      <input
+                        type="number"
+                        placeholder="20"
+                        className={`${styles.input}`}
+                        value={item.videoDuration}
+                        onChange={(e) => {
+                          const updatedData = [...courseContentData];
+                          updatedData[index].videoDuration = e.target.value;
                           setCourseContentData(updatedData);
                         }}
                       />

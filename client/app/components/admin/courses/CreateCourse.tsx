@@ -39,6 +39,8 @@ const CreateCourse = () => {
     thumbnail: "",
   });
 
+  console.log(courseInfo);
+
   const [benefits, setBenefits] = useState([{ title: "" }]);
   const [prerequisites, setPrerequisites] = useState([{ title: "" }]);
   const [courseContentData, setCourseContentData] = useState([
@@ -57,7 +59,10 @@ const CreateCourse = () => {
       suggestion: "",
     },
   ]);
+
   const [courseData, setCourseData] = useState({});
+
+  console.log(courseData);
 
   const handleSubmit = async () => {
     // format benefits array
@@ -74,6 +79,7 @@ const CreateCourse = () => {
         videoUrl: courseContent.videoUrl,
         title: courseContent.title,
         description: courseContent.description,
+        videoDuration: courseContent.videoDuration,
         videoSection: courseContent.videoSection,
         links: courseContent.links.map((link) => ({
           title: link.title,
