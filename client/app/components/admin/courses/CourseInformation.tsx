@@ -1,6 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import { styles } from "@/app/styles/style";
 import React, { FC, useState } from "react";
+import EditCategories from "../customization/EditCategories";
 
 type Props = {
   courseInfo: any;
@@ -141,19 +142,17 @@ const CourseInformation: FC<Props> = ({
             />
           </div>
           <div className="w-[50%]">
-            <label className={`${styles.label} w-[50%]`}>Demo Url</label>
-            <input
-              type="text"
-              name=""
-              required
-              value={courseInfo.demoURL}
-              onChange={(e: any) =>
-                setCourseInfo({ ...courseInfo, demoURL: e.target.value })
-              }
-              id="demoURL"
-              placeholder="eer7fd"
-              className={`${styles.input}`}
-            />
+            <label className={`${styles.label} w-[50%]`}>
+              Course Categories
+            </label>
+            <select name="" id="">
+              <option value="">Select Category</option>
+              {categories.map((item: any) => (
+                <option value={item._id} key={item._id}>
+                  {item.title}
+                </option>
+              ))}
+            </select>
           </div>
         </div>
         {/* <div> */}
