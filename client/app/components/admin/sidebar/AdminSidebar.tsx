@@ -22,6 +22,7 @@ import { HiOutlineZoomOut } from "react-icons/hi";
 import { RiGlobeLine, RiGroupFill, RiReceiptLine } from "react-icons/ri";
 import { FcSettings, FcVideoCall } from "react-icons/fc";
 import { BiBarChart, BiMapPin } from "react-icons/bi";
+import { AiOutlineLogout } from "react-icons/ai";
 
 interface itemProps {
   title: string;
@@ -310,9 +311,9 @@ const AdminSidebar = () => {
               {!isCollapsed && "Extras"}
             </Typography>
             <Item
-              title="Settings"
-              to="/admin/settings"
-              icon={<FcSettings />}
+              title="Logout"
+              to="/admin/logout"
+              icon={<AiOutlineLogout />}
               selected={selected}
               setSelected={setSelected}
             />
