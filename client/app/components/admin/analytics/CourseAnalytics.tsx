@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-expressions */
 import {
   BarChart,
   Bar,
@@ -26,12 +27,12 @@ const CourseAnalytics = ({}: Props) => {
 //     { name: "December 2025", uv: 7 },
 //   ];
 
-  //   const analyticsData: any = [];
+    const analyticsData: any = [];
 
-  //   data &&
-  //     data.courses.last12Months.forEach((item: any) => {
-  //       analyticsData.push({ name: item.month, uv: item.count });
-  //     });
+    data &&
+      data.courses.last12Months.forEach((item: any) => {
+        analyticsData.push({ name: item.month, uv: item.count });
+      });
 
   const minValue = 0;
 
