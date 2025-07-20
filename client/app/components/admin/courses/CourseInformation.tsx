@@ -124,41 +124,7 @@ const CourseInformation: FC<Props> = ({
           </div>
         </div>
         <br />
-        {/* categories */}
         <div className="w-full flex justify-between">
-            <div className="w-[45%]">
-              <label className={`${styles.label} w-[50%]`}>Course Level</label>
-              <input
-                type="text"
-                name=""
-                required
-                value={courseInfo.level}
-                onChange={(e: any) =>
-                  setCourseInfo({ ...courseInfo, level: e.target.value })
-                }
-                id="level"
-                placeholder="Beginner/Intermediate/Expert"
-                className={`${styles.input}`}
-              />
-            </div>
-            <div className="w-[50%]">
-              <label className={`${styles.label} w-[50%]`}>Demo Url</label>
-              <input
-                type="text"
-                name=""
-                required
-                value={courseInfo.demoURL}
-                onChange={(e: any) =>
-                  setCourseInfo({ ...courseInfo, demoURL: e.target.value })
-                }
-                id="demoURL"
-                placeholder="eer7fd"
-                className={`${styles.input}`}
-              />
-            </div>
-          </div>
-        {/* tags */}
-        <div>
           <div className="w-[45%]">
             <label className={`${styles.label} w-[50%]`}>Course Tags</label>
             <input
@@ -173,41 +139,58 @@ const CourseInformation: FC<Props> = ({
               placeholder="MERN"
               className={`${styles.input}`}
             />
-          </div>{" "}
-          <br />
-          <div className="w-full flex justify-between">
-            <div className="w-[45%]">
-              <label className={`${styles.label} w-[50%]`}>Course Level</label>
-              <input
-                type="text"
-                name=""
-                required
-                value={courseInfo.level}
-                onChange={(e: any) =>
-                  setCourseInfo({ ...courseInfo, level: e.target.value })
-                }
-                id="level"
-                placeholder="Beginner/Intermediate/Expert"
-                className={`${styles.input}`}
-              />
-            </div>
-            <div className="w-[50%]">
-              <label className={`${styles.label} w-[50%]`}>Demo Url</label>
-              <input
-                type="text"
-                name=""
-                required
-                value={courseInfo.demoURL}
-                onChange={(e: any) =>
-                  setCourseInfo({ ...courseInfo, demoURL: e.target.value })
-                }
-                id="demoURL"
-                placeholder="eer7fd"
-                className={`${styles.input}`}
-              />
-            </div>
+          </div>
+          <div className="w-[50%]">
+            <label className={`${styles.label} w-[50%]`}>Demo Url</label>
+            <input
+              type="text"
+              name=""
+              required
+              value={courseInfo.demoURL}
+              onChange={(e: any) =>
+                setCourseInfo({ ...courseInfo, demoURL: e.target.value })
+              }
+              id="demoURL"
+              placeholder="eer7fd"
+              className={`${styles.input}`}
+            />
           </div>
         </div>
+        {/* <div> */}
+        <br />
+        <div className="w-full flex justify-between">
+          <div className="w-[45%]">
+            <label className={`${styles.label} w-[50%]`}>Course Level</label>
+            <input
+              type="text"
+              name=""
+              required
+              value={courseInfo.level}
+              onChange={(e: any) =>
+                setCourseInfo({ ...courseInfo, level: e.target.value })
+              }
+              id="level"
+              placeholder="Beginner/Intermediate/Expert"
+              className={`${styles.input}`}
+            />
+          </div>
+          <div className="w-[50%]">
+            <label className={`${styles.label} w-[50%]`}>Demo Url</label>
+            <input
+              type="text"
+              name=""
+              required
+              value={courseInfo.demoURL}
+              onChange={(e: any) =>
+                setCourseInfo({ ...courseInfo, demoURL: e.target.value })
+              }
+              id="demoURL"
+              placeholder="eer7fd"
+              className={`${styles.input}`}
+            />
+          </div>
+        </div>
+        {/* </div> */}
         <br />
         <div className="w-full">
           <input
