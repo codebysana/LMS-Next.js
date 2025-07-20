@@ -2,6 +2,7 @@
 import { styles } from "@/app/styles/style";
 import React, { FC, useState } from "react";
 import EditCategories from "../customization/EditCategories";
+import { useGetHeroDataQuery } from "@/redux/features/layout/layoutApi";
 
 type Props = {
   courseInfo: any;
@@ -16,6 +17,10 @@ const CourseInformation: FC<Props> = ({
   setActive,
 }) => {
   const [dragging, setDragging] = useState(false);
+
+  const { data, isLoading, refetch } = useGetHeroDataQuery("Categories", {
+    refetchOnMountOrArgChange: true,
+  });
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
