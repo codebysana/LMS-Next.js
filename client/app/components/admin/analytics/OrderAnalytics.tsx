@@ -15,50 +15,48 @@ import {
   YAxis,
 } from "recharts";
 
-const data = [
-  {
-    name: "Page A",
-    Count: 4000,
-  },
-  {
-    name: "Page B",
-    Count: 3000,
-  },
-  {
-    name: "Page C",
-    Count: 5000,
-  },
-  {
-    name: "Page D",
-    Count: 1000,
-  },
-  {
-    name: "Page E",
-    Count: 4000,
-  },
-  {
-    name: "Page F",
-    Count: 800,
-  },
-  {
-    name: "Page G",
-    Count: 200,
-  },
-];
+// const analyticsData = [
+//   {
+//     name: "Page A",
+//     Count: 4000,
+//   },
+//   {
+//     name: "Page B",
+//     Count: 3000,
+//   },
+//   {
+//     name: "Page C",
+//     Count: 5000,
+//   },
+//   {
+//     name: "Page D",
+//     Count: 1000,
+//   },
+//   {
+//     name: "Page E",
+//     Count: 4000,
+//   },
+//   {
+//     name: "Page F",
+//     Count: 800,
+//   },
+//   {
+//     name: "Page G",
+//     Count: 200,
+//   },
+// ];
 
 type Props = { isDashboard?: boolean };
 
 const OrderAnalytics = ({ isDashboard }: Props) => {
-  const { isLoading } = useGetOrdersAnalyticsQuery({});
+  const { data, isLoading } = useGetOrdersAnalyticsQuery({});
 
-  useEffect(() => {}, []);
+    const analyticsData: any = [];
 
-  const analyticsData: any = [];
-
-  data &&
-    data.forEach((item: any) => {
-      analyticsData.push({ name: item.name, Count: item.count });
-    });
+    data &&
+      data.orders.last12Months.forEach((item: any) => {
+        analyticsData.push({ name: item.name, Count: item.count });
+      });
 
   return (
     <>
