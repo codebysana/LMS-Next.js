@@ -6,6 +6,7 @@ import React, { FC, useState } from "react";
 import Heading from "./utils/Heading";
 import Header from "./components/Header";
 import Hero from "./components/routes/Hero";
+import Courses from "./components/routes/Courses";
 // import "../globals.css"
 
 interface Props {}
@@ -29,6 +30,7 @@ const Page: FC<Props> = (props) => {
         setRoute={setRoute}
       />
       <Hero />
+      <Courses />
     </div>
   );
 };

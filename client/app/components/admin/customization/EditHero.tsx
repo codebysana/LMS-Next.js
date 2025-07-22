@@ -25,7 +25,7 @@ const EditHero: FC<Props> = (props: Props) => {
     if (data?.layout?.banner) {
       setTitle(data?.layout?.banner.title);
       setSubTitle(data?.layout?.banner.subTitle);
-      setImage(data?.layout?.banner.image);
+      setImage(data?.layout?.banner.image.url);
     }
     if (isSuccess) {
       refetch();

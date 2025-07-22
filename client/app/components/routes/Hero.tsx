@@ -84,21 +84,24 @@ import { BiSearch } from "react-icons/bi";
 import adminImage from "@/public/assets/admin-login.png";
 // import clientImage from "@/public/assets/client-02.jpg";
 import clientImage from "@/public/assets/client-02.jpg";
+import { useGetHeroDataQuery } from "@/redux/features/layout/layoutApi";
 
 type Props = {};
 
 const Hero: FC<Props> = () => {
+  const { data, refetch } = useGetHeroDataQuery("Banner", {});
   return (
     <div className="w-full min-h-screen overflow-hidden flex flex-col 1000px:flex-row items-center px-4">
       {/* Left Side: Responsive Image */}
       <div className="w-full 1000px:w-2/5 flex items-center justify-center pt-12 1000px:pt-0">
         <div className="w-full max-w-[600px] relative aspect-square">
           <Image
-            src={adminImage}
+            src={data?.layout?.banner?.image?.url}
             alt="banner"
             fill
-            className="object-contain"
-            priority
+            className="object-contain 1100px:max-w-[90%] w-[90%] 1500px:w-max-w-[85%] h-[auto] z-[10]"
+            width={400}
+            height={400}
           />
         </div>
       </div>
@@ -106,11 +109,11 @@ const Hero: FC<Props> = () => {
       {/* Right Side Content */}
       <div className="w-full 1000px:w-3/5 flex flex-col items-center 1000px:items-start text-center 1000px:text-left mt-10 1000px:mt-0">
         <h2 className="text-[30px] 1000px:text-[70px] font-semibold font-Hind text-[#000000c7] dark:text-white leading-tight max-w-[800px]">
-          Improve your online Learning Experience better instantly
+          {data?.layout?.banner?.title}
         </h2>
 
         <p className="text-[18px] font-semibold font-Hind text-[#000000ac] dark:text-[#edfff4] mt-4 max-w-[600px]">
-          We have 40k+ online courses & 500k+ online registered students. Find your desired courses from them.
+          {data?.layout?.banner?.subtitle}
         </p>
 
         {/* Search Bar */}
@@ -127,12 +130,27 @@ const Hero: FC<Props> = () => {
 
         {/* Client Avatars */}
         <div className="flex items-center mt-6 w-full max-w-[600px]">
-          <Image src={clientImage} alt="" className="rounded-full w-10 h-10 border-b-2 border-white" />
-          <Image src={clientImage} alt="" className="rounded-full w-10 h-10 ml-[-10px]" />
-          <Image src={clientImage} alt="" className="rounded-full w-10 h-10 ml-[-10px]" />
+          <Image
+            src={clientImage}
+            alt=""
+            className="rounded-full w-10 h-10 border-b-2 border-white"
+          />
+          <Image
+            src={clientImage}
+            alt=""
+            className="rounded-full w-10 h-10 ml-[-10px]"
+          />
+          <Image
+            src={clientImage}
+            alt=""
+            className="rounded-full w-10 h-10 ml-[-10px]"
+          />
           <p className="text-[18px] font-semibold font-Hind text-[#000000b3] dark:text-[#edfff4] pl-3">
             500k+ people already trusted us.{" "}
-            <Link href="/courses" className="text-[crimson] dark:text-[#46e256]">
+            <Link
+              href="/courses"
+              className="text-[crimson] dark:text-[#46e256]"
+            >
               View Courses
             </Link>
           </p>
