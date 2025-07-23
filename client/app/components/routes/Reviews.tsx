@@ -6,6 +6,7 @@ type Props = {};
 export const reviews = [
   {
     name: "Gene Bates",
+    rating: 5,
     avatar: "https://randomuser.me/api/portraits/men/85.jpg",
     profession: "Student | Cambridge University",
     comment:
@@ -13,6 +14,7 @@ export const reviews = [
   },
   {
     name: "John Doe",
+    rating: 4.5,
     avatar: "https://randomuser.me/api/portraits/men/64.jpg",
     profession: "Full Stack Developer | Quarter LTD",
     comment:
@@ -20,6 +22,7 @@ export const reviews = [
   },
   {
     name: "Emma Watson",
+    rating: 4,
     avatar: "https://randomuser.me/api/portraits/women/63.jpg",
     profession: "Computer Systems Engineering Student | Brazil",
     comment:
@@ -27,6 +30,7 @@ export const reviews = [
   },
   {
     name: "Jonas Schemedtman",
+    rating: 4,
     avatar: "https://randomuser.me/api/portraits/men/94.jpg",
     profession: "Junior Web Developer | UK",
     comment:
@@ -34,6 +38,7 @@ export const reviews = [
   },
   {
     name: "Ruth Johnson",
+    rating: 5,
     avatar: "https://randomuser.me/api/portraits/women/90.jpg",
     profession: "Junior Web Developer | UK",
     comment:
