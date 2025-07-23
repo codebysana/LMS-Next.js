@@ -1,32 +1,40 @@
 import { styles } from "@/app/styles/style";
 import Image from "next/image";
+import ReviewCard from "../Review/ReviewCard.tsx";
 
 type Props = {};
 export const reviews = [
   {
     name: "Gene Bates",
-    avatar: "",
+    avatar: "https://randomuser.me/api/portraits/men/85.jpg",
     profession: "Student | Cambridge University",
     comment:
       "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Illo eius itaque autem dolorum! Non temporibus, similique sint eveniet nostrum sapiente blanditiis nemo eius nisi excepturi autem tempora, aliquam, porro placeat!",
   },
   {
     name: "John Doe",
-    avatar: "",
+    avatar: "https://randomuser.me/api/portraits/men/64.jpg",
     profession: "Full Stack Developer | Quarter LTD",
     comment:
       "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Illo eius itaque autem dolorum! Non temporibus, similique sint eveniet nostrum sapiente blanditiis nemo eius nisi excepturi autem tempora, aliquam, porro placeat!",
   },
   {
     name: "Emma Watson",
-    avatar: "",
+    avatar: "https://randomuser.me/api/portraits/women/63.jpg",
     profession: "Computer Systems Engineering Student | Brazil",
     comment:
       "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Illo eius itaque autem dolorum! Non temporibus, similique sint eveniet nostrum sapiente blanditiis nemo eius nisi excepturi autem tempora, aliquam, porro placeat!",
   },
   {
+    name: "Jonas Schemedtman",
+    avatar: "https://randomuser.me/api/portraits/men/94.jpg",
+    profession: "Junior Web Developer | UK",
+    comment:
+      "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Illo eius itaque autem dolorum! Non temporibus, similique sint eveniet nostrum sapiente blanditiis nemo eius nisi excepturi autem tempora, aliquam, porro placeat!",
+  },
+  {
     name: "Ruth Johnson",
-    avatar: "",
+    avatar: "https://randomuser.me/api/portraits/women/90.jpg",
     profession: "Junior Web Developer | UK",
     comment:
       "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Illo eius itaque autem dolorum! Non temporibus, similique sint eveniet nostrum sapiente blanditiis nemo eius nisi excepturi autem tempora, aliquam, porro placeat!",
@@ -58,6 +66,12 @@ const Reviews = ({}: Props) => {
             officia eaque?
           </p>
         </div>
+        <br />
+        <br />
+      </div>
+      <div className="grid grid-cols-1 gap-[25px] md:grid-cols-2 md:gap-[25px] lg:grid-cols-2 lg:gap-[25px] xl:grid-cols-2 xl:gap-[35px] mb-12 border-0 md:[&>*:nth-child(3)]:!mt-[60px] md:[&>*:nth-child(6)]:!mt-[-40px]">
+        {reviews &&
+          reviews.map((i, index) => <ReviewCard item={i} key={index} />)}
       </div>
     </div>
   );
