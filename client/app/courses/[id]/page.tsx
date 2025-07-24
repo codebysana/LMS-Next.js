@@ -1,9 +1,10 @@
 "use client";
+import CourseDetailsPage from "../../components/courses/CourseDetailsPage";
 
 const Page = ({ params }: any) => {
   return (
     <div>
-      <CourseDetailsPage />
+      <CourseDetailsPage id={params.id} />
     </div>
   );
 };
