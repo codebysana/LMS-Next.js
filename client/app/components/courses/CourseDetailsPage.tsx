@@ -38,7 +38,7 @@ const CourseDetailsPage = ({ id }: Props) => {
 
   useEffect(() => {
     if (paymentIndentData) {
-      setClientSecret(paymentIndentData?.clientSecret);
+      setClientSecret(paymentIndentData?.client_secret);
     }
   }, [paymentIndentData]);
   return (

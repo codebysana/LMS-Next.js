@@ -1,6 +1,6 @@
 import { styles } from "@/app/styles/style";
 import Image from "next/image";
-import ReviewCard from "../Review/ReviewCard.tsx";
+import ReviewCard from "../review/ReviewCard.jsx";
 
 type Props = {};
 export const reviews = [

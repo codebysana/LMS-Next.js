@@ -1,12 +1,14 @@
+import { useState } from "react";
+import Link from "next/link";
+import { format } from "timeago.js";
+import { useSelector } from "react-redux";
+import Ratings from "@/app/utils/Ratings";
 import { styles } from "@/app/styles/style";
 import CoursePlayer from "@/app/utils/CoursePlayer";
-import Ratings from "@/app/utils/Ratings";
-import Link from "next/link";
 import { IoCheckmarkDoneOutline, IoCloseOutline } from "react-icons/io5";
-import { useSelector } from "react-redux";
-import { format } from "timeago.js";
 import CourseContentList from "../courses/CourseContentList";
-import { useState } from "react";
+import Elements from "@stripe/react-stripe-js";
+import CheckoutForm from "../payment/CheckoutForm";
 
 type Props = {
   data: any;
@@ -213,6 +215,13 @@ const CourseDetails = ({ data, stripePromise, clientSecret }: Props) => {
                   className="text-black cursor-pointer"
                   onClick={() => setOpen(false)}
                 />
+              </div>
+              <div className="w-full">
+                {stripePromise && clientSecret && (
+                  <Elements stripe={stripePromise} options={{ clientSecret }}>
+                    <CheckoutForm setOpen={setOpen} data={data} />
+                  </Elements>
+                )}
               </div>
             </div>
           </div>
