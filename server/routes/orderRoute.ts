@@ -1,6 +1,11 @@
 import express from "express";
 import { isAuthenticated } from "../middleware/auth";
-import { createOrder, getAllOrders } from "../controllers/orderController";
+import {
+  createOrder,
+  getAllOrders,
+  sendStripePublishableKey,
+  stripeNewPayment,
+} from "../controllers/orderController";
 import {
   authorizeRoles,
   updateAccessToken,
@@ -15,5 +20,9 @@ router.get(
   authorizeRoles("admin"),
   getAllOrders
 );
+
+router.get("/payment/stripepublishablekey", sendStripePublishableKey);
+
+router.post("/payment", isAuthenticated, stripeNewPayment);
 
 export default router;

@@ -9,12 +9,26 @@ import courseModel from "../models/courseModel";
 import orderModel, { IOrder } from "../models/orderModel";
 import notificationModel from "../models/notificationModel";
 import { getAllOrderService, newOrder } from "../services/orderService";
+import { redis } from "../utils/redis";
+require("dotenv").config();
+const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 
 // create order
 export const createOrder = catchAsyncError(
   async (req: Request, res: Response, next: NextFunction) => {
     try {
       const { courseId, paymentInfo } = req.body as IOrder;
+      if (paymentInfo) {
+        if ("id" in paymentInfo) {
+          const paymentIntentId = paymentInfo.id;
+          const paymentIntent = await stripe.paymentIntents.retrieve(
+            paymentIntentId
+          );
+          if (paymentIntent.status !== "succeeded") {
+            return next(new ErrorHandler("Payment not authorized!", 400));
+          }
+        }
+      }
       const user = await userModel.findById(req.user?._id);
       const courseUserExist = user?.courses.some(
         (course: any) => course._id.toString() === courseId
@@ -68,6 +82,9 @@ export const createOrder = catchAsyncError(
         return next(new ErrorHandler(error.message, 500));
       }
       user?.courses.push(course?._id);
+
+      await redis.set(req.user?._id, JSON.stringify(user));
+
       await user?.save();
 
       await notificationModel.create({
@@ -101,7 +118,7 @@ export const getAllOrders = catchAsyncError(
 
 // send stripe publish key
 
-export const sendStripePublishKey = catchAsyncError(
+export const sendStripePublishableKey = catchAsyncError(
   async (req: Request, res: Response) => {
     res.status(200).json({
       publishablekey: process.env.STRIPE_PUBLISHABLE_KEY,
@@ -110,10 +127,25 @@ export const sendStripePublishKey = catchAsyncError(
 );
 
 // new payment
-export const newPayment = catchAsyncError(async(req:Request,res:Response,next:NextFunction)=>{
-  try{
-    const stripePayment = await;
-  }catch(error:any){
-    return next(new ErrorHandler(error.message, 500));
+export const stripeNewPayment = catchAsyncError(
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const stripePayment = await stripe.paymentIntents.create({
+        amount: req.body.amount,
+        currency: "USD",
+        metadata: {
+          company: "ScholarNet",
+        },
+        automatic_payment_methods: {
+          enabled: true,
+        },
+      });
+      res.status(201).json({
+        success: true,
+        client_secret: stripePayment.client_secret,
+      });
+    } catch (error: any) {
+      return next(new ErrorHandler(error.message, 500));
+    }
   }
-})
+);

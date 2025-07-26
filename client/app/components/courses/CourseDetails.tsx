@@ -10,9 +10,11 @@ import { useState } from "react";
 
 type Props = {
   data: any;
+  stripePromise: any;
+  clientSecret: string;
 };
 
-const CourseDetails = ({ data }: Props) => {
+const CourseDetails = ({ data, stripePromise, clientSecret }: Props) => {
   const { user } = useSelector((state: any) => state.auth);
   const [open, setOpen] = useState(false);
 
