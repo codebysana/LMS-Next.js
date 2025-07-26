@@ -34,7 +34,7 @@ export const createOrder = catchAsyncError(
       const data: any = {
         courseId: course._id,
         userId: user?._id,
-        paymentInfo
+        paymentInfo,
       };
 
       const mailData = {
@@ -76,7 +76,7 @@ export const createOrder = catchAsyncError(
         message: `You have a new Order from ${course?.name}`,
       });
 
-      course.purchased ? course.purchased += 1 : course.purchased;
+      course.purchased ? (course.purchased += 1) : course.purchased;
 
       await course.save();
 
@@ -88,12 +88,32 @@ export const createOrder = catchAsyncError(
 );
 
 // get all orders - only for admin
-export const getAllOrders = catchAsyncError(async(req:Request, res:Response, next: NextFunction)=>{
-  try{
-    const users = await orderModel.find();
-    getAllOrderService(res);
-  }
-   catch (error: any) {
+export const getAllOrders = catchAsyncError(
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const users = await orderModel.find();
+      getAllOrderService(res);
+    } catch (error: any) {
       return next(new ErrorHandler(error.message, 400));
+    }
+  }
+);
+
+// send stripe publish key
+
+export const sendStripePublishKey = catchAsyncError(
+  async (req: Request, res: Response) => {
+    res.status(200).json({
+      publishablekey: process.env.STRIPE_PUBLISHABLE_KEY,
+    });
+  }
+);
+
+// new payment
+export const newPayment = catchAsyncError(async(req:Request,res:Response,next:NextFunction)=>{
+  try{
+    const stripePayment = await;
+  }catch(error:any){
+    return next(new ErrorHandler(error.message, 500));
   }
 })
