@@ -4,6 +4,7 @@ import Ratings from "@/app/utils/Ratings";
 import {
   useAddAnswerInQuestionMutation,
   useAddNewQuestionMutation,
+  useAddReplyInReviewMutation,
   useAddReviewInCourseMutation,
   useGetCourseDetailsQuery,
 } from "@/redux/features/courses/coursesApi";
@@ -42,8 +43,10 @@ const CourseContentMedia = ({
   const [review, setReview] = useState("");
   const [rating, setRating] = useState(1);
   const [answer, setAnswer] = useState("");
+  const [reply, setReply] = useState("");
   const [questionId, setQuestionId] = useState("");
   const [isReviewReply, setIsReviewReply] = useState(false);
+  const [reviewId, setReviewId] = useState("");
 
   const { data: courseData, refetch: courseRefetch } = useGetCourseDetailsQuery(
     id,
@@ -74,6 +77,15 @@ const CourseContentMedia = ({
       isLoading: reviewCreationLoading,
     },
   ] = useAddReviewInCourseMutation();
+
+  const [
+    addReplyInReview,
+    {
+      isSuccess: replySuccess,
+      error: replyError,
+      isLoading: replyCreationLoading,
+    },
+  ] = useAddReplyInReviewMutation();
 
   const isReviewExists = course?.reviews?.find(
     (item: any) => item.user._id === user._id
@@ -127,6 +139,17 @@ const CourseContentMedia = ({
         toast.error(errorMessage.data.message);
       }
     }
+    if (replySuccess) {
+      setReply("");
+      courseRefetch();
+      toast.success("Reply added successfully");
+    }
+    if (replyError) {
+      if ("data" in replyError) {
+        const errorMessage = error as any;
+        toast.error(errorMessage.data.message);
+      }
+    }
   }, [
     isSuccess,
     error,
@@ -134,6 +157,8 @@ const CourseContentMedia = ({
     answerError,
     reviewSuccess,
     reviewError,
+    replySuccess,
+    replyError,
   ]);
 
   const handleAnswerSubmit = () => {
@@ -155,6 +180,17 @@ const CourseContentMedia = ({
       addReviewInCourse({ review, rating, courseId: id });
     }
   };
+
+  const handleReviewReplySubmit = () => {
+    if (!replyCreationLoading) {
+      if (reply === "") {
+        toast.error("Reply can't be empty");
+      } else {
+        addReplyInReview({ comment: reply, courseId: id, reviewId });
+      }
+    }
+  };
+
   return (
     <div className="w-[95%] 800px:w-[86%] py-4 m-auto">
       <CoursePlayer
@@ -356,7 +392,10 @@ const CourseContentMedia = ({
               <div className="w-full">
                 {(course?.reviews && [...course.reviews].reverse()).map(
                   (item: any, index: number) => (
-                    <div className="w-full my-5" key={index}>
+                    <div
+                      className="w-full my-5 dark:text-white text-black"
+                      key={index}
+                    >
                       <div className="w-full flex">
                         <div>
                           <Image
@@ -371,23 +410,72 @@ const CourseContentMedia = ({
                           <h1 className="text-[18px]">{item?.user.name}</h1>
                           <Ratings rating={item.rating} />
                           <p>{item.comment}</p>
-                          <small className="text-[#ffffff83]">
+                          <small className="dark:text-[#ffffff83] text-[#0000009e]">
                             {format(item.createdAt)} *
                           </small>
                         </div>
                       </div>
                       {user.role === "admin" && (
-                        <span className={styles.label}>Add Reply </span>
+                        <span
+                          className={`${styles.label} !ml-10 cursor-pointer`}
+                          onClick={() => {
+                            setIsReviewReply(true);
+                            setReviewId(item._id);
+                          }}
+                        >
+                          Add Reply{" "}
+                        </span>
                       )}
+                      {isReviewReply && (
+                        <div className="w-full flex relative">
+                          <input
+                            type="text"
+                            name=""
+                            id=""
+                            value={reply}
+                            onChange={(e: any) => setReply(e.target.value)}
+                            placeholder="Enter your reply"
+                            className="block 800px:ml-12 mt-2 outline-none bg-transparent border-b border-[#000] dark:border-[#fff] p-[5px] w-[95%]"
+                            // className={`${styles.input} !border-[0px] rounded-none w-[90%] ml-[10%]  !border-b`}
+                          />
+                          <button
+                            type="submit"
+                            className="absolute right-0 bottom-1"
+                            onClick={handleReviewReplySubmit}
+                          >
+                            Submit
+                          </button>
+                        </div>
+                      )}
+                      {item.commentReplies.map((i: any, index: number) => {
+                        <div className="w-full flex 800px:ml-16 my-5">
+                          <div className="w-[50px] h-[50px]">
+                            <Image
+                              src={i.user.avatar ? i.user.avatar.url : ""}
+                              width={50}
+                              height={50}
+                              alt=""
+                              className="w-[50px] h-[50px] rounded-full object-cover"
+                            />
+                          </div>
+                          <div className="pl-2">
+                            <div className="flex items-center">
+                              <h5 className="text-[20px]">{i.user.name}</h5>
+                              <VscVerifiedFilled className="text-[#0095f6] ml-2 text-[20px]" />
+                            </div>
+                            <p>{i.comment}</p>
+                            <small className="text-[#ffffff83]">
+                              {format(i.createdAt)}
+                            </small>
+                          </div>
+                        </div>;
+                      })}
                     </div>
                   )
                 )}
               </div>
             </div>
             <br />
-            {isReviewReply && (
-              <input type="text" name="" id="" className={styles.input} />
-            )}
           </>
         </div>
       )}
