@@ -63,6 +63,8 @@ const CourseDetailsPage = ({ id }: Props) => {
           />
           {stripePromise && (
             <CourseDetails
+              setRoute={setRoute}
+              setOpen={setOpen}
               data={data?.course}
               stripePromise={stripePromise}
               clientSecret={clientSecret}

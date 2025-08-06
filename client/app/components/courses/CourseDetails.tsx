@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { format } from "timeago.js";
 import { useSelector } from "react-redux";
@@ -17,15 +17,28 @@ type Props = {
   data: any;
   stripePromise: any;
   clientSecret: string;
+  setRoute: any;
+  setOpen: any;
 };
 
-const CourseDetails = ({ data, stripePromise, clientSecret }: Props) => {
+const CourseDetails = ({
+  data,
+  stripePromise,
+  clientSecret,
+  setRoute,
+  setOpen: openAuthModel,
+}: Props) => {
+  const [user, setUser] = useState<any>();
   const { data: userData } = useLoadUserQuery(undefined, {});
-  const user = userData?.user;
+  // const user = userData?.user;
   const [open, setOpen] = useState(false);
 
+  useEffect(() => {
+    setUser(userData?.user);
+  }, [userData]);
+
   const discountPercentage =
-    ((data.estimatedPrice - data.price) / data?.estimatedPrice) * 100;
+    ((data?.estimatedPrice - data.price) / data?.estimatedPrice) * 100;
 
   const discountPercentagePrice = discountPercentage.toFixed(0);
 
@@ -33,7 +46,12 @@ const CourseDetails = ({ data, stripePromise, clientSecret }: Props) => {
     user && user?.courses?.find((item: any) => item._id === data._id);
 
   const handleOrder = (e: any) => {
-    setOpen(true);
+    if (user) {
+      setOpen(true);
+    } else {
+      setRoute("Login");
+      openAuthModel(true);
+    }
   };
   return (
     <div>
