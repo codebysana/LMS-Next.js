@@ -77,14 +77,14 @@ const AllInvoices = ({ isDashboard }: Props) => {
   ];
 
   const rows: any = [
-    {
-      id: "1234567898767",
-      userName: "Sana",
-      userEmail: "sana.younis05@gmail.com",
-      title: "React Js Course",
-      price: "$500",
-      created_at: "2 days ago",
-    },
+    // {
+    //   id: "1234567898767",
+    //   userName: "Sana",
+    //   userEmail: "sana.younis05@gmail.com",
+    //   title: "React Js Course",
+    //   price: "$500",
+    //   created_at: "2 days ago",
+    // },
   ];
 
   orderData &&

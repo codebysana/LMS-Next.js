@@ -80,10 +80,10 @@ import React, { FC, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { BiSearch } from "react-icons/bi";
-
-import adminImage from "@/public/assets/admin-login.png";
-// import clientImage from "@/public/assets/client-02.jpg";
-import clientImage from "@/public/assets/client-02.jpg";
+import heroBanner from "@/public/assets/hero-banner-1.png";
+import clientImage1 from "@/public/assets/client-01.jpg";
+import clientImage2 from "@/public/assets/client-02.jpg";
+import clientImage3 from "@/public/assets/client-03.jpg";
 import { useGetHeroDataQuery } from "@/redux/features/layout/layoutApi";
 import Loader from "../loader/Loader";
 import { useRouter } from "next/navigation";
@@ -153,17 +153,17 @@ const Hero: FC<Props> = () => {
             {/* Client Avatars */}
             <div className="flex items-center mt-6 w-full max-w-[600px]">
               <Image
-                src={clientImage}
+                src={clientImage1}
                 alt=""
                 className="rounded-full w-10 h-10 border-b-2 border-white"
               />
               <Image
-                src={clientImage}
+                src={clientImage2}
                 alt=""
                 className="rounded-full w-10 h-10 ml-[-10px]"
               />
               <Image
-                src={clientImage}
+                src={clientImage3}
                 alt=""
                 className="rounded-full w-10 h-10 ml-[-10px]"
               />

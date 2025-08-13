@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 "use client";
 import { useGetUsersAllCoursesQuery } from "@/redux/features/courses/coursesApi";
 import { useGetHeroDataQuery } from "@/redux/features/layout/layoutApi";
@@ -8,6 +9,7 @@ import Header from "../components/Header";
 import Heading from "../utils/Heading";
 import { styles } from "../styles/style";
 import CourseCard from "../components/courses/CourseCard";
+import Footer from "../components/Footer";
 
 const page = () => {
   const searchParams = useSearchParams();
@@ -102,6 +104,7 @@ const page = () => {
                 ))}
             </div>
           </div>
+          <Footer />
         </>
       )}
     </div>

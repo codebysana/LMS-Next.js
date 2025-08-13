@@ -1,13 +1,19 @@
 "use client";
+import "./globals.css";
+import React, { FC, useEffect } from "react";
 import { Poppins } from "next/font/google";
 import { Hind } from "next/font/google";
 import { ThemeProvider } from "./utils/theme-provider";
-import "./globals.css";
 import { Toaster } from "react-hot-toast";
 import { Providers } from "./provider";
 import { SessionProvider } from "next-auth/react";
 import { useLoadUserQuery } from "@/redux/features/api/apiSlice";
 import Loader from "./components/loader/Loader";
+import { io } from "socket.io-client";
+const ENDPOINT = process.env.NEXT_PUBLIC_SOCKET_SERVER_URI || "";
+const socketId = io(ENDPOINT, {
+  transports: ["websocket"],
+});
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -50,5 +56,8 @@ export default function RootLayout({
 
 const Custom: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const { isLoading } = useLoadUserQuery({});
+  useEffect(() => {
+    socketId.on("connection", () => {});
+  }, []);
   return <>{isLoading ? <Loader /> : <>{children}</>}</>;
 };

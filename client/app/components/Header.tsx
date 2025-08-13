@@ -19,6 +19,7 @@ import {
   useSocialAuthMutation,
 } from "../../redux/features/auth/authApi";
 import toast from "react-hot-toast";
+import { useLoadUserQuery } from "@/redux/features/api/apiSlice";
 
 type Props = {
   open: boolean;
@@ -30,34 +31,42 @@ type Props = {
 
 const Header: FC<Props> = ({ activeItem, open, setOpen, route, setRoute }) => {
   const [active, setActive] = useState(false);
-  const [openSidebar, setOpenSidebar] = useState(false);
-  const { user } = useSelector((state: any) => state.auth);
-  const { data } = useSession();
-  const [socialAuth, { isSuccess, error }] = useSocialAuthMutation();
   const [logout, setLogout] = useState(false);
+  const [openSidebar, setOpenSidebar] = useState(false);
+  const { data } = useSession();
+  const { user } = useSelector((state: any) => state.auth);
+  const [socialAuth, { isSuccess, error }] = useSocialAuthMutation();
+  const {
+    data: userData,
+    isLoading,
+    refetch,
+  } = useLoadUserQuery(undefined, {});
   const {} = useLogoutQuery(undefined, {
     skip: !logout ? true : false,
   });
 
   useEffect(() => {
-    if (!user) {
-      if (data) {
-        socialAuth({
-          name: data?.user?.name,
-          email: data?.user?.email,
-          avatar: data?.user?.image,
-        });
+    if (!isLoading) {
+      if (!userData) {
+        if (data) {
+          socialAuth({
+            name: data?.user?.name,
+            email: data?.user?.email,
+            avatar: data?.user?.image,
+          });
+          refetch();
+        }
+      }
+      if (data === null) {
+        if (isSuccess) {
+          toast.success("Login Successfully!");
+        }
+      }
+      if (data === null && !isLoading && !userData) {
+        setLogout(true);
       }
     }
-    if (data === null || isSuccess) {
-      if (isSuccess) {
-        toast.success("Login Successfully!");
-      }
-    }
-    if (data === null) {
-      setLogout(true);
-    }
-  }, [data, user]);
+  }, [data, userData, isLoading]);
 
   if (typeof window !== "undefined") {
     window.addEventListener("scroll", () => {
@@ -108,10 +117,12 @@ const Header: FC<Props> = ({ activeItem, open, setOpen, route, setRoute }) => {
                   className="cursor-pointer dark:text-white text-black"
                 />
               </div>
-              {user ? (
+              {userData ? (
                 <Link href={"/profile"}>
                   <Image
-                    src={user.avatar ? user.avatar.url : avatar}
+                    src={
+                      userData.user.avatar ? userData.user.avatar.url : avatar
+                    }
                     alt=""
                     className="w-[30px] h-[30px] rounded-full cursor-pointer"
                     style={{
@@ -138,14 +149,29 @@ const Header: FC<Props> = ({ activeItem, open, setOpen, route, setRoute }) => {
           >
             <div className="w-[70%] fixed z-[9999999999] bg-white dark:bg-slate-900 dark:bg-opacity-90 top-0 right-0">
               <NavItems activeItem={activeItem} isMobile={true} />
-              <HiOutlineUserCircle
-                size={25}
-                className="cursor-pointer ml-5 my-2 text-black dark:text-white"
-                onClick={() => setOpen(true)}
-              />
+              {userData ? (
+                <Link href={"/profile"}>
+                  <Image
+                    src={
+                      userData.user.avatar ? userData.user.avatar.url : avatar
+                    }
+                    alt=""
+                    className="w-[30px] h-[30px] rounded-full ml-[20px] cursor-pointer"
+                    style={{
+                      border: activeItem === 5 ? "2px solid #37a39a" : "none",
+                    }}
+                  />
+                </Link>
+              ) : (
+                <HiOutlineUserCircle
+                  onClick={() => setOpen(true)}
+                  size={25}
+                  className="hidden 800px:block cursor-pointer dark:text-white text-black ml-2"
+                />
+              )}
               <br />
               <br />
-              <p>Copyright &copy; 2025 LMS</p>
+              <p>Copyright &copy; 2025 ScholarNet</p>
             </div>
           </div>
         )}
@@ -159,6 +185,7 @@ const Header: FC<Props> = ({ activeItem, open, setOpen, route, setRoute }) => {
               setRoute={setRoute}
               activeItem={activeItem}
               component={Login}
+              refetch={refetch}
             />
           )}
         </>

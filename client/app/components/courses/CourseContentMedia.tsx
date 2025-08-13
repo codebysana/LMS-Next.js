@@ -20,6 +20,11 @@ import {
 import { BiMessage } from "react-icons/bi";
 import { VscVerifiedFilled } from "react-icons/vsc";
 import { format } from "timeago.js";
+import { io } from "socket.io-client";
+const ENDPOINT = process.env.NEXT_PUBLIC_SOCKET_SERVER_URI || "";
+const socketId = io(ENDPOINT, {
+  transports: ["websocket"],
+});
 
 type Props = {
   id: string;
@@ -109,11 +114,23 @@ const CourseContentMedia = ({
       setQuestion("");
       refetch();
       toast.success("Question Added Successfully");
+      socketId.emit("notification", {
+        title: "New Question Received",
+        message: `You have a new question ${data[activeVideo].title}`,
+        userId: user._id,
+      });
     }
     if (answerSuccess) {
       setAnswer("");
       refetch();
       toast.success("Answer added successfully");
+      if (user.role !== "admin") {
+        socketId.emit("notification", {
+          title: "New Question Reply Received",
+          message: `You have a new question reply in ${data[activeVideo].title}`,
+          userId: user._id,
+        });
+      }
     }
     if (error) {
       if ("data" in error) {
@@ -132,6 +149,11 @@ const CourseContentMedia = ({
       setRating(1);
       courseRefetch();
       toast.success("Review added successfully");
+      socketId.emit("notification", {
+        title: "New Question Received",
+        message: `You have a new question ${data[activeVideo].title}`,
+        userId: user._id,
+      });
     }
     if (reviewError) {
       if ("data" in reviewError) {
@@ -274,7 +296,11 @@ const CourseContentMedia = ({
         <>
           <div className="flex w-full">
             <Image
-              src={user.avatar ? user.avatar.url : ""}
+              src={
+                user.avatar
+                  ? user.avatar.url
+                  : "https://res.cloudinary.com/dsqbqjbms/image/upload/v1755069843/girl-headshot_wrkeje.webp"
+              }
               width={50}
               height={50}
               alt=""
@@ -328,7 +354,11 @@ const CourseContentMedia = ({
               <>
                 <div className="flex w-full">
                   <Image
-                    src={user.avatar ? user.avatar.url : ""}
+                    src={
+                      user.avatar
+                        ? user.avatar.url
+                        : "https://res.cloudinary.com/dsqbqjbms/image/upload/v1755069843/girl-headshot_wrkeje.webp"
+                    }
                     width={50}
                     height={50}
                     alt=""
@@ -399,7 +429,11 @@ const CourseContentMedia = ({
                       <div className="w-full flex">
                         <div>
                           <Image
-                            src={item.user.avatar ? item.user.avatar.url : ""}
+                            src={
+                              item.user.avatar
+                                ? item.user.avatar.url
+                                : "https://res.cloudinary.com/dsqbqjbms/image/upload/v1755069843/girl-headshot_wrkeje.webp"
+                            }
                             width={50}
                             height={50}
                             alt=""
@@ -451,7 +485,11 @@ const CourseContentMedia = ({
                         <div className="w-full flex 800px:ml-16 my-5">
                           <div className="w-[50px] h-[50px]">
                             <Image
-                              src={i.user.avatar ? i.user.avatar.url : ""}
+                              src={
+                                i.user.avatar
+                                  ? i.user.avatar.url
+                                  : "https://res.cloudinary.com/dsqbqjbms/image/upload/v1755069843/girl-headshot_wrkeje.webp"
+                              }
                               width={50}
                               height={50}
                               alt=""
@@ -530,7 +568,11 @@ const CommentItem = ({
         <div className="flex mb-2">
           <div>
             <Image
-              src={item.user.avatar ? item.user.avatar.url : ""}
+              src={
+                item.user.avatar
+                  ? item.user.avatar.url
+                  : "https://res.cloudinary.com/dsqbqjbms/image/upload/v1755069843/girl-headshot_wrkeje.webp"
+              }
               width={50}
               height={50}
               alt=""
@@ -566,7 +608,8 @@ const CommentItem = ({
             {item.questionReplies.length}
           </span>
         </div>
-        {replyActive && (
+
+        {replyActive && questionId === item._id && (
           <>
             {item.questionReplies.map((item: any, index: number) => (
               <div
@@ -575,7 +618,11 @@ const CommentItem = ({
               >
                 <div>
                   <Image
-                    src={item.user.avatar ? item.user.avatar.url : ""}
+                    src={
+                      item.user.avatar
+                        ? item.user.avatar.url
+                        : "https://res.cloudinary.com/dsqbqjbms/image/upload/v1755069843/girl-headshot_wrkeje.webp"
+                    }
                     width={50}
                     height={50}
                     alt=""

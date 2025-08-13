@@ -1,6 +1,6 @@
 import { styles } from "@/app/styles/style";
 import Image from "next/image";
-import ReviewCard from "../review/ReviewCard.jsx";
+import ReviewCard from "../review/ReviewCard";
 
 type Props = {};
 export const reviews = [
@@ -52,7 +52,7 @@ const Reviews = ({}: Props) => {
       <div className="w-full 800px:flex items-center">
         <div className="800px:w-[50%] w-full ">
           <Image
-            src={require("../../../public/assets/business-img.png")}
+            src={require("../../../public/assets/girl-avatar.jpg")}
             alt="business"
             width={700}
             height={700}

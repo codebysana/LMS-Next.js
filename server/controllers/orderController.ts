@@ -5,7 +5,7 @@ import { Request, Response, NextFunction } from "express";
 import { catchAsyncError } from "../middleware/catchAsyncError";
 import ErrorHandler from "../utils/errorHandler";
 import userModel from "../models/userModel";
-import courseModel from "../models/courseModel";
+import courseModel, { ICourse } from "../models/courseModel";
 import orderModel, { IOrder } from "../models/orderModel";
 import notificationModel from "../models/notificationModel";
 import { getAllOrderService, newOrder } from "../services/orderService";
@@ -39,7 +39,7 @@ export const createOrder = catchAsyncError(
         );
       }
 
-      const course: any = await courseModel.findById(courseId);
+      const course: ICourse | null = await courseModel.findById(courseId);
 
       if (!course) {
         return next(new ErrorHandler("Course not found", 404));
@@ -93,7 +93,7 @@ export const createOrder = catchAsyncError(
         message: `You have a new Order from ${course?.name}`,
       });
 
-      course.purchased ? (course.purchased += 1) : course.purchased;
+      course.purchased = course.purchased + 1;
 
       await course.save();
 
