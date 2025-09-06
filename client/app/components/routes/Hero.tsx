@@ -110,31 +110,37 @@ const Hero: FC<Props> = () => {
       ) : (
         <div className="w-full min-h-screen overflow-hidden flex flex-col 1000px:flex-row items-center px-4">
           {/* Left Side: Responsive Image */}
-          <div className="w-full 1000px:w-2/5 flex items-center justify-center pt-12 1000px:pt-0">
-            <div className="w-full max-w-[600px] relative aspect-square">
-              <Image
-                src={data?.layout?.banner?.image?.url}
-                alt="banner"
-                fill
-                className="object-contain 1100px:max-w-[90%] w-[90%] 1500px:w-max-w-[85%] h-[auto] z-[10]"
-                width={400}
-                height={400}
-              />
-            </div>
+          {/* Background Circle Animation */}
+          <div
+            className="absolute top-24 md:top-auto lg:left-8 xl:left-14 
+                h-[400px] w-[400px] md:h-[400px] md:w-[400px] xl:h-[450px] xl:w-[450px] 
+                hero_animation rounded-full"
+          ></div>
+
+          {/* Image Section */}
+          <div className="w-full md:w-2/5 flex md:min-h-screen items-center justify-end pt-16 md:pt-0 z-10">
+            <Image
+              // src={data?.layout?.banner?.image?.url}
+              src={heroBanner}
+              width={400}
+              height={400}
+              alt="Hero Banner"
+              className="object-contain w-[90%] md:max-w-[90%] xl:max-w-[85%] h-auto z-10"
+            />
           </div>
-
-          {/* Right Side Content */}
-          <div className="w-full 1000px:w-3/5 flex flex-col items-center 1000px:items-start text-center 1000px:text-left mt-10 1000px:mt-0">
-            <h2 className="text-[30px] 1000px:text-[70px] font-semibold font-Hind text-[#000000c7] dark:text-white leading-tight max-w-[800px]">
-              {data?.layout?.banner?.title}
+          <div className="1000px:w-[60%] flex flex-col items-center 1000px:mt-[0px] text-center 1000px:text-left mt-[150px]">
+            <h2 className="dark:text-white text-[#000000c7] text-[30px] w-full 1000px:text-[55px] font-[600] font-Josefin py-2 1000px:leading-[65px] 1500px:w-[60%] 1100px:w-[78%]">
+              {data?.layout?.banner?.title || "Improve Your Online Learning Experience Better Instantly " }
             </h2>
-
-            <p className="text-[18px] font-semibold font-Hind text-[#000000ac] dark:text-[#edfff4] mt-4 max-w-[600px]">
-              {data?.layout?.banner?.subtitle}
+            <br />
+            <p className="dark:text-[#edfff4] text-[#000000ac] font-Josefin font-[400] text-[18px] leading-[27px] 1500px:!w-[55%] 1100px:!w-[78%]">
+              {data?.layout?.banner?.subTitle || "We have 20k+ online courses and 500k+ Online registered students. Find your desired Courses from here."}
             </p>
+            <br />
+            <br />
 
             {/* Search Bar */}
-            <div className="relative mt-6 w-full max-w-[600px] h-[50px]">
+            <div className="relative w-full max-w-[600px] h-[50px]">
               <input
                 type="search"
                 placeholder="Search Courses..."

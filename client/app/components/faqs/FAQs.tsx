@@ -6,12 +6,12 @@ import { HiMinus, HiPlus } from "react-icons/hi";
 type Props = {};
 
 const FAQs = ({}: Props) => {
-  const { data, isLoading } = useGetHeroDataQuery("FAQs", {});
+  const { data, isLoading } = useGetHeroDataQuery("FAQ", {});
   const [activeQuestion, setActiveQuestion] = useState(null);
   const [questions, setQuestions] = useState<any[]>([]);
 
   useEffect(() => {
-    if (data) {
+    if (data?.layout?.faqs) {
       setQuestions(data.layout.faqs);
     }
   }, [data]);
@@ -20,7 +20,7 @@ const FAQs = ({}: Props) => {
   };
   return (
     <div>
-      <div className="w-[90%] 800px:w-[80%] m-auto">
+      <div className="w-[90%] 800px:w-[80%] mx-auto my-14">
         <h1 className={`${styles.title} 800px:text-[40px]`}>
           Frequently Asked Questions
         </h1>
@@ -31,7 +31,7 @@ const FAQs = ({}: Props) => {
                 className={`${
                   q._id !== questions[0]?._id && "border-t"
                 } border-gray-200 pt-6`}
-                key={q.id}
+                key={q._id}
               >
                 <dt className="text-lg">
                   <button

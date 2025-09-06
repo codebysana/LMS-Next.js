@@ -27,7 +27,7 @@ const page = ({}: Props) => {
         route={route}
         setRoute={setRoute}
       />
-      <Faqs />
+      <FAQs />
       <Footer />
     </div>
   );

@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-expressions */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { FC } from "react";
-import { styles } from "@app/styles/style";
+import React from "react";
 import {
   AreaChart,
   Area,
@@ -12,6 +11,7 @@ import {
 } from "recharts";
 import Loader from "../../loader/Loader";
 import { useGetUsersAnalyticsQuery } from "@/redux/features/analytics/analyticsApi";
+import { styles } from "@/app/styles/style";
 
 type Props = {
   isDashboard?: boolean;
@@ -36,7 +36,7 @@ const UserAnalytics = ({ isDashboard }: Props) => {
   const { data, isLoading } = useGetUsersAnalyticsQuery({});
   const analyticsData: any = [];
   data &&
-    data.users.last12Months.forEach((item: any) => {
+    data?.users?.last12Months?.forEach((item: any) => {
       analyticsData.push({ name: item.month, count: item.count });
     });
   return (

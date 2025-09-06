@@ -81,14 +81,14 @@ const Profile: FC<Props> = ({ user }) => {
           <div className="w-full pl-7 px-2 800px:px-10 800px:pl-8">
             <div className="grid grid-cols-1 gap-[20px] md:grid-cols-2 md:gap-[25px] lg:grid-cols-2 lg:gap-[25px] xl:grid-cols-3 xl:gap-[35px]">
               {courses &&
-                courses.map((item: any, index: number) => {
+                courses.map((item: any, index: number) => (
                   <CourseCard
                     item={item}
                     key={index}
                     user={user}
                     isProfile={true}
-                  />;
-                })}
+                  />
+                ))}
             </div>
             {courses.length === 0 && (
               <h1 className="text-center tex[18px] font-Poppins">

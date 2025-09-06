@@ -11,7 +11,7 @@ import IoMdAddCircleOutline from "react-icons/io";
 import Loader from "../../loader/Loader";
 
 const EditFaqs = () => {
-  const { data, isLoading } = useGetHeroDataQuery("FAQS", {
+  const { data, isLoading } = useGetHeroDataQuery("FAQ", {
     refetchOnMountOrArgChange: true,
   });
 

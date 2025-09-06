@@ -55,8 +55,10 @@ const DashboardWidgets: FC<Props> = ({ open }) => {
       return;
     } else {
       if (data && ordersData) {
-        const usersLastTwoMonths = data.users.last12Months.slice(-2);
-        const ordersLastTwoMonths = ordersData.orders.last12Months.slice(-2);
+        const usersLastTwoMonths = data?.users?.last12Months?.slice(-2) ?? [];
+
+        const ordersLastTwoMonths =
+          ordersData?.orders?.last12Months?.slice(-2) ?? [];
 
         if (usersLastTwoMonths.length === 2 && ordersLastTwoMonths === 2) {
           const usersCurrentMonth = usersLastTwoMonths[1].count;

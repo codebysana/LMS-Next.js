@@ -1,3 +1,4 @@
+import { styles } from "@/app/styles/style";
 import { useUpdatePasswordMutation } from "@/redux/features/user/userApi";
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
@@ -42,7 +43,7 @@ const ChangePassword = () => {
           aria-required
           className="flex flex-col items-center"
         >
-          <div className="w-full md:w-1/2 mt-5">
+          <div className="w-full mt-2 800px:w-[60%]">
             <label className="block pb-2 text-black dark:text-[#fff]">
               Enter Old Password
             </label>

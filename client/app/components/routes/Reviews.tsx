@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-require-imports */
 import { styles } from "@/app/styles/style";
 import Image from "next/image";
 import ReviewCard from "../review/ReviewCard";
@@ -52,14 +53,14 @@ const Reviews = ({}: Props) => {
       <div className="w-full 800px:flex items-center">
         <div className="800px:w-[50%] w-full ">
           <Image
-            src={require("../../../public/assets/girl-avatar.jpg")}
+            src={require("../../../public/assets/business-img.png")}
             alt="business"
             width={700}
             height={700}
           />
         </div>
         <div className="800px:w-[50%] w-full">
-          <h3 className={`${styles.title} 800px:!text=[40px] capitalize`}>
+          <h3 className={`${styles.title} 800px:!text=[40px] capitalize text-left`}>
             Our students are <span className="text-gradient">Our Stength</span>
             <br /> See what they say about us
           </h3>

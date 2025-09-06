@@ -8,7 +8,7 @@ import Header from "./components/Header";
 import Hero from "./components/routes/Hero";
 import Courses from "./components/routes/Courses";
 import Reviews from "./components/routes/Reviews";
-import FAQs from "./components/faqs/FAQs";
+import FAQS from "./components/faqs/FAQs";
 import Footer from "./components/Footer"
 // import "../globals.css"
 
@@ -21,8 +21,8 @@ const Page: FC<Props> = (props) => {
   return (
     <div>
       <Heading
-        title="LMS"
-        description="LMS is a platform where students can enroll and learn courses from international teachers."
+        title="ScholarNet"
+        description="ScholarNet is a platform where students can enroll and learn courses from international teachers."
         keywords="Programming, MERN, Redux Toolkit, Machine Lerning"
       />
       <Header
@@ -35,7 +35,7 @@ const Page: FC<Props> = (props) => {
       <Hero />
       <Courses />
       <Reviews />
-      <FAQs />
+      <FAQS />
       <Footer />
     </div>
   );

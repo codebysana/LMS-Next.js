@@ -88,6 +88,12 @@ const CreateCourse = () => {
         suggestion: courseContent.suggestion,
       })
     );
+    // category value
+    const categoryValue = Array.isArray(courseInfo.categories)
+      ? courseInfo.categories.filter((cat) => cat.trim() !== "")
+      : courseInfo.categories.trim() !== ""
+      ? [courseInfo.categories.trim()]
+      : [];
     // prepare our data object
     const data = {
       name: courseInfo.name,
@@ -95,6 +101,7 @@ const CreateCourse = () => {
       price: courseInfo.price,
       estimatedPrice: courseInfo.estimatedPrice,
       tags: courseInfo.tags,
+      categories: categoryValue,
       thumbnail: courseInfo.thumbnail,
       level: courseInfo.level,
       demoURL: courseInfo.demoURL,
@@ -109,6 +116,11 @@ const CreateCourse = () => {
   // console.log(courseData);
   const handleCourseCreate = async (e: any) => {
     const data = courseData;
+
+    if (!data?.categories?.length) {
+      toast.error("Please select at least one category");
+      return;
+    }
 
     if (!isLoading) {
       await createCourse(data);

@@ -9,7 +9,7 @@ import { format } from "timeago.js";
 import { useGetAllOrdersQuery } from "@/redux/features/orders/ordersApi";
 import { useGetAllUsersQuery } from "@/redux/features/user/userApi";
 import { AiOutlineMail } from "react-icons/ai";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import CourseData from "../courses/CourseData";
 
 type Props = {
@@ -26,11 +26,11 @@ const AllInvoices = ({ isDashboard }: Props) => {
 
   useEffect(() => {
     if (data) {
-      const temp = data.orders.mao((item: any) => {
-        const user = usersData?.users.find(
+      const temp = data.orders.map((item: any) => {
+        const user = userData?.users?.find?.(
           (user: any) => user._id === item.userId
         );
-        const course = CourseData?.courses.find(
+        const course = coursesData?.courses?.find?.(
           (course: any) => course._id === item.courseId
         );
         return {
