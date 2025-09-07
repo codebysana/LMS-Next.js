@@ -51,19 +51,19 @@ type Props = { isDashboard?: boolean };
 const OrderAnalytics = ({ isDashboard }: Props) => {
   const { data, isLoading } = useGetOrdersAnalyticsQuery({});
 
-    const analyticsData: any = [];
+  const analyticsData: any = [];
 
-    data &&
-      data?.orders?.last12Months?.forEach((item: any) => {
-        analyticsData.push({ name: item.name, Count: item.count });
-      });
+  data &&
+    data?.orders?.last12Months?.forEach((item: any) => {
+      analyticsData.push({ name: item.name, Count: item.count });
+    });
 
   return (
     <>
       {isLoading ? (
         <Loader />
       ) : (
-        <div className={isDashboard ? "h-[30vh]" : "h-screen"}>
+        <div className={isDashboard ? "h-[30vh]" : "h-screen w-[95%] mx-auto"}>
           <div
             className={isDashboard ? "mt-[0px] pl-[40px] mb-2" : "mt-[50px]"}
           >

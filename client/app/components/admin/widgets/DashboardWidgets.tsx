@@ -97,14 +97,14 @@ const DashboardWidgets: FC<Props> = ({ open }) => {
     }
   }, [isLoading, ordersLoading, data, ordersData]);
   return (
-    <div className="mt-[30px] min-h-screen">
-      <div className="grid grid-cols-[75%, 25%]">
-        <div className="p-8">
+    <div className="mt-[30px] min-h-screen w-full max-w-7xl mx-auto px-4">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div className="lg:col-span-2 py-6 bg-transparent mt-4 flex-1">
           <UserAnalytics isDashboard={true} />
         </div>
 
-        <div className="pt-[80px] pr-8">
-          <div className="w-full dark:bg-[#111C43] rounded-sm shadow">
+        <div className="pt-[80px] pr-3">
+          <div className="dark:bg-[#111C43] rounded-sm shadow mb-8">
             <div className="flex items-center p-5 justify-between">
               <div className="">
                 <BiBorderLeft className="dark:text-[#45CBA0] text-[#000] text-[30px]" />
@@ -131,7 +131,7 @@ const DashboardWidgets: FC<Props> = ({ open }) => {
             </div>
           </div>
 
-          <div className="w-full dark:bg-[#111C43] rounded-sm shadow my-8">
+          <div className=" dark:bg-[#111C43] rounded-sm shadow my-8">
             <div className="flex items-center p-5 justify-between">
               <div className="">
                 <PiUsersFourLight className="dark:text-[#45CBA0] text-[#000] text-[30px]" />
@@ -160,12 +160,12 @@ const DashboardWidgets: FC<Props> = ({ open }) => {
         </div>
       </div>
 
-      <div className="grid grid-cols-[65%, 35%] mt-[20px]">
-        <div className="dark:bg-[#111c43] w-[94%] mt-[30px] h-[40vh] shadow-sm m-auto">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mt-[30px]">
+        <div className="lg:col-span-2 dark:bg-[#111c43] shadow-sm py-6 rounded-sm mx-5 mt-3 flex-1">
           <OrderAnalytics isDashboard={true} />
         </div>
-        <div className="p-5">
-          <h5 className="dark:bg-[#fff] text-black text-[20px] font-[400] font-Poppins pb-3">
+        <div className="dark:bg-[#fff] text-black shadow-sm rounded-sm mr-3 flex-1">
+          <h5 className="text-[20px] font-[400] font-Poppins p-3">
             Recent Transactions
           </h5>
           <AllInvoices isDashboard={true} />

@@ -18,11 +18,11 @@ import { useSelector } from "react-redux";
 import avatarDefault from "../../../../public/assets/avatar.jpg";
 // import "react-pro-sidebar/dist/css/style.css";
 import { useTheme } from "next-themes";
-import { HiOutlineZoomOut } from "react-icons/hi";
 import { RiGlobeLine, RiGroupFill, RiReceiptLine } from "react-icons/ri";
-import { FcSettings, FcVideoCall } from "react-icons/fc";
+import { FcVideoCall } from "react-icons/fc";
 import { BiBarChart, BiMapPin } from "react-icons/bi";
 import { AiOutlineLogout } from "react-icons/ai";
+import {NavLink}from "react-router-dom"
 
 interface itemProps {
   title: string;
@@ -34,14 +34,15 @@ interface itemProps {
 
 const Item: FC<itemProps> = ({ title, to, icon, selected, setSelected }) => {
   return (
-    <MenuItem
-      active={selected === title}
-      onClick={() => setSelected(title)}
-      icon={icon}
-    >
-      <Typography className="!text-[16px] !font-Poppins">{title}</Typography>
-      <Link href={to} />
-    </MenuItem>
+    <Link href={to} style={{ textDecoration: "none", cursor: "pointer" }}>
+      <MenuItem
+        active={selected === title}
+        onClick={() => setSelected(title)}
+        icon={icon}
+      >
+        <Typography className="!text-[16px] !font-Poppins">{title}</Typography>
+      </MenuItem>
+    </Link>
   );
 };
 

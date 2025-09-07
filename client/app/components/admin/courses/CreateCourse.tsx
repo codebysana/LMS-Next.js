@@ -60,7 +60,10 @@ const CreateCourse = () => {
     },
   ]);
 
-  const [courseData, setCourseData] = useState({});
+  const [courseData, setCourseData] = useState<{
+    categories: string[];
+    [key: string]: any;
+  }>({ categories: [] });
 
   console.log(courseData);
 
@@ -123,7 +126,7 @@ const CreateCourse = () => {
     }
 
     if (!isLoading) {
-      await createCourse(data);
+      await createCourse(data).unwrap();
     }
   };
   return (

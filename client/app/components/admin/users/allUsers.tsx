@@ -5,7 +5,7 @@ import { DataGrid } from "@mui/x-data-grid";
 import { Box, Button, Modal } from "@mui/material";
 import { AiOutlineDelete, AiOutlineMail } from "react-icons/ai";
 import { useTheme } from "next-themes";
-import Loader from "../../loader/Loader"
+import Loader from "../../loader/Loader";
 import { format } from "timeago.js";
 import {
   useGetAllUsersQuery,
@@ -119,7 +119,7 @@ const AllUsers: FC<Props> = ({ isTeam }) => {
 
   if (isTeam) {
     const newData =
-      data && data.users.filter((item: any) => item.role === "admin");
+      data && data?.users?.filter((item: any) => item.role === "admin");
 
     newData &&
       newData.forEach((item: any) => {
@@ -151,12 +151,12 @@ const AllUsers: FC<Props> = ({ isTeam }) => {
   };
 
   return (
-    <div className="mt-[120px]">
+    <div className="h-[100vh] mt-[100px] bg-[#0E1524]">
       {isLoading ? (
         <Loader />
       ) : (
         <Box m="20px">
-          <div className="w-full flex justify-end">
+          <div className="w-full flex justify-end ">
             <div
               className={`${styles.button} !w-[200px] !h-[35px] dark:bg-[#57c7a3] dark:border dark:border-[#ffffff6c]`}
               onClick={() => setActive(!active)}
@@ -171,6 +171,8 @@ const AllUsers: FC<Props> = ({ isTeam }) => {
               "& .MuiDataGrid-root": {
                 border: "none",
                 outline: "none",
+                width:"95%",
+                mx:"auto"
               },
               "& .css-pqjvzy-MuiSvgIcon-root-MuiSelect-icon": {
                 color: theme === "dark" ? "#fff" : "#000",
@@ -184,6 +186,9 @@ const AllUsers: FC<Props> = ({ isTeam }) => {
                   theme === "dark"
                     ? "1px solid #ffffff30!important"
                     : "1px solid #ccc!important",
+                "&:hover": {
+                  backgroundColor: "transparent !important",
+                },
               },
               "& .MuiTablePagination-root": {
                 color: theme === "dark" ? "#fff" : "#000",
@@ -192,12 +197,12 @@ const AllUsers: FC<Props> = ({ isTeam }) => {
                 borderBottom: "none",
               },
               "& .name-column--cell": {
-                color: theme === "dark" ? "#fff" : "#000",
+                color: theme === "dark" ? "#000" : "#000",
               },
               "& .MuiDataGrid-columnHeaders": {
                 backgroundColor: theme === "dark" ? "#3e4396" : "#A4A9FC",
                 borderBottom: "none",
-                color: theme === "dark" ? "#fff" : "#000",
+                color: theme === "dark" ? "#000" : "#000",
               },
               "& .MuiDataGrid-virtualScroller": {
                 backgroundColor: theme === "dark" ? "#1F2A40" : "#F2F0F0",
